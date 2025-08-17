@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "functions": {
+    "api/index.php": {
+      "runtime": "vercel-php@0.3.1"
+    }
+  },
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/api/index.php"
+    }
+  ],
+  "env": {
+    "APP_ENV": "production",
+    "APP_DEBUG": "false",
+    "APP_KEY": "base64:SgJNaAOE1f/hK6xLzo8EZiF1ch5jVyaVyAyZ7IcooNU=",
+    "LOG_CHANNEL": "stderr",
+    "SESSION_DRIVER": "cookie",
+    "CACHE_DRIVER": "array"
+  }
+}
