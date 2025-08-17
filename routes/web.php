@@ -11,8 +11,9 @@ Route::get('/exportInsurance', [DataController::class, 'export'])->name('exportI
 Route::get('/DetailAsuransi/{insurance}', [DataController::class, 'detail_asuransi'])->name('detail_asuransi');
 Route::get('/export-pdf-insurance', [DataController::class, 'exportPDF'])->name('export.pdf');
 Route::get('/cek-url', function () {
-    dd(config('app.url'));
+    return dd(config('app.url'));
 });
+
 
 
 // LINK GET STNK
