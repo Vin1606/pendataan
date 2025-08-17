@@ -3,7 +3,8 @@
         <div class="flex py-4 items-center justify-between">
             <div class="flex items-center">
                 <div class="shrink-0">
-                    <img class="w-[100px] h-auto" src= "http://simweb5.tftgrup.com/assets/img/logo.png"
+                    <img class="w-[100px] h-auto"
+                        src= "https://service.tftgrup.com/javax.faces.resource/images/TerangFajar-Logo.PNG.xhtml"
                         alt="Your Company" />
                 </div>
                 <div class="hidden md:block">
