@@ -10,6 +10,10 @@ Route::get('/CreateAsuransi', [DataController::class, 'create_asuransi'])->name(
 Route::get('/exportInsurance', [DataController::class, 'export'])->name('exportInsurance');
 Route::get('/DetailAsuransi/{insurance}', [DataController::class, 'detail_asuransi'])->name('detail_asuransi');
 Route::get('/export-pdf-insurance', [DataController::class, 'exportPDF'])->name('export.pdf');
+Route::get('/cek-url', function () {
+    dd(config('app.url'));
+});
+
 
 // LINK GET STNK
 Route::get('/exportStnk', [DataController::class, 'exportSTNK'])->name('exportStnk');
