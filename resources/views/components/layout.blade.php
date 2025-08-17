@@ -18,7 +18,8 @@
         integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
 
     {{-- FAVICON --}}
-    <link rel="icon" sizes="32x32" href="https://simweb5.tftgrup.com/assets/img/logo.png" type="image/png">
+    <link rel="icon" sizes="32x32"
+        href="https://service.tftgrup.com/javax.faces.resource/images/TerangFajar-Logo.PNG.xhtml" type="image/png">
 </head>
 @vite(['resources/css/app.css'])
 
