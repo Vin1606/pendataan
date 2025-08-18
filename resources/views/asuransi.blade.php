@@ -63,7 +63,7 @@
         </div>
         <div class="overflow-x-auto">
             <table class="min-w-max w-full text-sm mt-3">
-                <thead class="bg-blue-500 text-white text-center">
+                <thead class="bg-blue-500 text-white text-center sticky top-0 z-10">
                     <tr>
                         <th class="border px-4 py-2">No</th>
                         <th class="border px-4 py-2">Nomor Polisi</th>
