@@ -19,7 +19,7 @@ Route::get('/export-pdf-insurance', [DataController::class, 'exportPDF'])->name(
 
 // LINK GET STNK
 Route::get('/exportStnk', [DataController::class, 'exportSTNK'])->name('exportStnk');
-Route::get('/public/DataStnk', [DataController::class, 'data_stnk'])->name('data.stnk');
+Route::get('/DataStnk', [DataController::class, 'data_stnk'])->name('data.stnk');
 Route::get('/CreateStnk', [DataController::class, 'create_stnk'])->name('create_stnk');
 Route::get('/EditStnk/{stnk}', [DataController::class, 'edit_stnk'])->name('edit_stnk');
 Route::get('/DetailStnk/{stnk}', [DataController::class, 'detail_stnk'])->name('detail_stnk');
