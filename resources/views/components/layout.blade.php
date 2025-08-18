@@ -39,6 +39,12 @@
 
     {{-- Font Awesome Kit --}}
     <script src="https://kit.fontawesome.com/c2752fde40.js" crossorigin="anonymous"></script>
+
+    <script>
+        document.addEventListener('gesturestart', function(e) {
+            e.preventDefault();
+        });
+    </script>
 </body>
 
 </html>
