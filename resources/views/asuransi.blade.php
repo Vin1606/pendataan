@@ -61,45 +61,49 @@
         <div class="mb-3">
             <h1 class="font-bold">DATA ASURANSI SEMUA KENDARAAN</h1>
         </div>
-        <table class="w-full text-sm mt-3">
-            <thead class="bg-blue-500 text-white text-center">
-                <tr>
-                    <th class="border px-4 py-2">No</th>
-                    <th class="border px-4 py-2">Nomor Polisi</th>
-                    <th class="border px-4 py-2">Asuransi</th>
-                    <th class="border px-4 py-2">Nomor Polish</th>
-                    <th class="border px-4 py-2">No.Rangka</th>
-                    <th class="border px-4 py-2">No.Mesin</th>
-                    <th class="border px-4 py-2">Tahun</th>
-                    <th class="border px-4 py-2">Harga</th>
-                    <th class="border px-4 py-2">Mulai</th>
-                    <th class="border px-4 py-2">Berakhir</th>
-                    <th class="border px-4 py-2">Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($insurances as $index => $as)
-                    <tr class="text-center text-xs">
-                        <td class="border px-4 py-2">{{ $insurances->firstItem() + $index }}</td>
-                        <td class="border px-4 py-2">{{ $as->nopol }}</td>
-                        <td class="border px-4 py-2">{{ $as->name }}</td>
-                        <td class="border px-4 py-2">{{ $as->no_polish }}</td>
-                        <td class="border px-4 py-2">{{ $as->rangka }}</td>
-                        <td class="border px-4 py-2">{{ $as->mesin }}</td>
-                        <td class="border px-2 py-2">{{ $as->tahun }}</td>
-                        <td class="border px-2 py-2">{{ Number::currency($as->harga, in: 'IDR') }}</td>
-                        <td class="border px-2 py-2">{{ \Carbon\Carbon::parse($as->start)->translatedFormat('d-m-Y') }}
-                        </td>
-                        <td class="border px-2 py-2">{{ \Carbon\Carbon::parse($as->end)->translatedFormat('d-m-Y') }}
-                        </td>
-                        <td class="border px-1 py-2">
-                            <a href="{{ route('detail_asuransi', $as) }}" class="btn btn-primary text-xs"><i
-                                    class="fa-solid fa-pen" style="font-size: 10px"></i></a>
-                        </td>
+        <div class="overflow-x-auto">
+            <table class="min-w-max w-full text-sm mt-3">
+                <thead class="bg-blue-500 text-white text-center">
+                    <tr>
+                        <th class="border px-4 py-2">No</th>
+                        <th class="border px-4 py-2">Nomor Polisi</th>
+                        <th class="border px-4 py-2">Asuransi</th>
+                        <th class="border px-4 py-2">Nomor Polish</th>
+                        <th class="border px-4 py-2">No.Rangka</th>
+                        <th class="border px-4 py-2">No.Mesin</th>
+                        <th class="border px-4 py-2">Tahun</th>
+                        <th class="border px-4 py-2">Harga</th>
+                        <th class="border px-4 py-2">Mulai</th>
+                        <th class="border px-4 py-2">Berakhir</th>
+                        <th class="border px-4 py-2">Aksi</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach ($insurances as $index => $as)
+                        <tr class="text-center text-xs">
+                            <td class="border px-4 py-2">{{ $insurances->firstItem() + $index }}</td>
+                            <td class="border px-4 py-2">{{ $as->nopol }}</td>
+                            <td class="border px-4 py-2">{{ $as->name }}</td>
+                            <td class="border px-4 py-2">{{ $as->no_polish }}</td>
+                            <td class="border px-4 py-2">{{ $as->rangka }}</td>
+                            <td class="border px-4 py-2">{{ $as->mesin }}</td>
+                            <td class="border px-2 py-2">{{ $as->tahun }}</td>
+                            <td class="border px-2 py-2">{{ Number::currency($as->harga, in: 'IDR') }}</td>
+                            <td class="border px-2 py-2">
+                                {{ \Carbon\Carbon::parse($as->start)->translatedFormat('d-m-Y') }}
+                            </td>
+                            <td class="border px-2 py-2">
+                                {{ \Carbon\Carbon::parse($as->end)->translatedFormat('d-m-Y') }}
+                            </td>
+                            <td class="border px-1 py-2">
+                                <a href="{{ route('detail_asuransi', $as) }}" class="btn btn-primary text-xs"><i
+                                        class="fa-solid fa-pen" style="font-size: 10px"></i></a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
 
         <div class="mt-6">
             {{ $insurances->links() }}
