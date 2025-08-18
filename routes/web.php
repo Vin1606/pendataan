@@ -6,7 +6,7 @@ use App\Http\Controllers\DataController;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 
 // LINK GET ASURANSI
-Route::get('/', [DataController::class, 'index'])->name('index');
+Route::get('/Asuransi', [DataController::class, 'index'])->name('index');
 Route::get('/CreateAsuransi', [DataController::class, 'create_asuransi'])->name('create_asuransi');
 Route::get('/exportInsurance', [DataController::class, 'export'])->name('exportInsurance');
 Route::get('/DetailAsuransi/{insurance}', [DataController::class, 'detail_asuransi'])->name('detail_asuransi');
@@ -36,7 +36,7 @@ Route::put('/DetailStnk/{stnk}', [DataController::class, 'update_stnk'])->name('
 
 Route::delete('/photo/{stnk}', [DataController::class, 'deletePhoto'])->name('photo.delete');
 
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::get('/', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
