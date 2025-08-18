@@ -56,8 +56,9 @@
                 <th>No</th>
                 <th>Nomor Polisi</th>
                 <th>Asuransi</th>
-                <th>No. Rangka</th>
-                <th>No. Mesin</th>
+                <th>No.Polish</th>
+                <th>No.Rangka</th>
+                <th>No.Mesin</th>
                 <th>Tahun</th>
                 <th>Harga</th>
                 <th>Mulai</th>
@@ -70,6 +71,7 @@
                     <td>{{ $index + 1 }}</td>
                     <td>{{ $as->nopol }}</td>
                     <td>{{ $as->name }}</td>
+                    <td>{{ $as->no_polish }}</td>
                     <td>{{ $as->rangka }}</td>
                     <td>{{ $as->mesin }}</td>
                     <td>{{ $as->tahun }}</td>
