@@ -9,7 +9,7 @@
         </x-alert-success>
     @endif
 
-    <div class="mt-4 py-4 px-4 bg-white rounded-lg shadow-sm">
+    <div class="mt-4 py-4 px-4 bg-red-900 rounded-lg shadow-sm">
         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
 
             {{-- Tombol Aksi --}}
