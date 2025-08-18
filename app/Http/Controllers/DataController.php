@@ -63,6 +63,7 @@ class DataController extends Controller
         $validated = $request->validate([
             'nopol' => 'required|string',
             'name' => 'required|string',
+            'no_polish' => 'required|string',
             'rangka' => 'required|string|min:17|max:17',
             'mesin' => 'required|string',
             'tahun' => 'required|integer',
@@ -79,6 +80,7 @@ class DataController extends Controller
         $validated = $request->validate([
             'nopol' => 'required|string',
             'name' => 'required|string',
+            'no_polish' => 'required|string',
             'rangka' => 'required|string|min:17|max:17',
             'mesin' => 'required|string',
             'tahun' => 'required|integer',

@@ -67,6 +67,7 @@
                     <th class="border px-4 py-2">No</th>
                     <th class="border px-4 py-2">Nomor Polisi</th>
                     <th class="border px-4 py-2">Asuransi</th>
+                    <th class="border px-4 py-2">Nomor Polish</th>
                     <th class="border px-4 py-2">No.Rangka</th>
                     <th class="border px-4 py-2">No.Mesin</th>
                     <th class="border px-4 py-2">Tahun</th>
@@ -82,6 +83,7 @@
                         <td class="border px-4 py-2">{{ $insurances->firstItem() + $index }}</td>
                         <td class="border px-4 py-2">{{ $as->nopol }}</td>
                         <td class="border px-4 py-2">{{ $as->name }}</td>
+                        <td class="border px-4 py-2">{{ $as->no_polish }}</td>
                         <td class="border px-4 py-2">{{ $as->rangka }}</td>
                         <td class="border px-4 py-2">{{ $as->mesin }}</td>
                         <td class="border px-2 py-2">{{ $as->tahun }}</td>

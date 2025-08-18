@@ -21,6 +21,7 @@
 
     {{-- Vite Assets --}}
     <script src="https://cdn.tailwindcss.com"></script>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body class="h-full">

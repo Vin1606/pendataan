@@ -10,6 +10,7 @@ class Insurance extends Model
     protected $fillable = [
         'nopol',
         'name',
+        'no_polish',
         'rangka',
         'mesin',
         'tahun',
