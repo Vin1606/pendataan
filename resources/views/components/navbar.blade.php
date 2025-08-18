@@ -1,6 +1,6 @@
 <nav class="bg-light" x-data="{ isOpen: false }">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div class="flex h-16 items-center justify-between">
+        <div class="flex items-center justify-between">
             <div class="flex items-center">
                 <div class="shrink-0">
                     <img class="w-[100px] h-auto"
