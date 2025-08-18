@@ -20,7 +20,7 @@
         href="https://service.tftgrup.com/javax.faces.resource/images/TerangFajar-Logo.PNG.xhtml" type="image/png">
 
     {{-- Vite Assets --}}
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body class="h-full">
