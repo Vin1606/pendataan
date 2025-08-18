@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DataController;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 
@@ -34,3 +35,10 @@ Route::put('/DetailAsuransi/{insurance}', [DataController::class, 'update_asuran
 Route::put('/DetailStnk/{stnk}', [DataController::class, 'update_stnk'])->name('update_stnk');
 
 Route::delete('/photo/{stnk}', [DataController::class, 'deletePhoto'])->name('photo.delete');
+
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login'])->name('login.post');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [AuthController::class, 'register'])->name('register.post');
