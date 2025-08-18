@@ -7,20 +7,19 @@
     <style>
         body {
             font-family: sans-serif;
-            font-size: 11px;
-            margin: 10px;
+            font-size: 10px;
+            margin: 5px;
         }
 
         h1 {
             text-align: center;
             font-size: 16px;
-            margin-bottom: 10px;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 10px;
+            margin-top: 20px;
         }
 
         th,
@@ -61,7 +60,6 @@
                 <th>No.Mesin</th>
                 <th>Tahun</th>
                 <th>Harga</th>
-                <th>Mulai</th>
                 <th>Berakhir</th>
             </tr>
         </thead>
@@ -76,7 +74,6 @@
                     <td>{{ $as->mesin }}</td>
                     <td>{{ $as->tahun }}</td>
                     <td>Rp{{ number_format($as->harga, 0, ',', '.') }}</td>
-                    <td>{{ \Carbon\Carbon::parse($as->start)->format('d-m-Y') }}</td>
                     <td>{{ \Carbon\Carbon::parse($as->end)->format('d-m-Y') }}</td>
                 </tr>
             @endforeach
