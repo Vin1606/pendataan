@@ -1,4 +1,4 @@
-<nav class="bg-light" x-data="{ isOpen: false }">
+<nav class="bg-light py-4" x-data="{ isOpen: false }">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between">
             <div class="flex items-center">

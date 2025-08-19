@@ -28,7 +28,7 @@
 </head>
 
 <body class="h-full">
-    <div class="w-[100vw] h-full mx-auto bg-white shadow-lg">
+    <div class="min-h-full">
         <x-navbar />
         <x-header :subtitle="$subtitle" />
 
