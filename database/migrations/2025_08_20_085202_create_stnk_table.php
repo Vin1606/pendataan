@@ -13,14 +13,15 @@ return new class extends Migration
     {
         Schema::create('stnk', function (Blueprint $table) {
             $table->id('id_stnk');
-            $table->string('nopol');
-            $table->string('type');
-            $table->string('rangka');
-            $table->string('mesin');
-            $table->integer('tahun');
-            $table->string('plat');
-            $table->string('pajak');
-            $table->string('pemilik');
+            $table->unsignedBigInteger('id_kendaraan');
+
+            $table->foreign('id_kendaraan')
+                ->references('id_kendaraan')
+                ->on('kendaraan')
+                ->onDelete('cascade');
+            $table->string('plat')->nullable();
+            $table->string('pajak')->nullable();
+            $table->string('photo_path')->nullable();
             $table->timestamps();
         });
     }

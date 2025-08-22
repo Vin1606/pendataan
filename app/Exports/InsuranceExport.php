@@ -25,14 +25,13 @@ class InsuranceExport implements FromCollection, WithHeadings
             return [
                 'No'        => $index + 1, // Mulai dari 1
                 'Nopol'     => $item->nopol,
-                'Asuransi'  => $item->name->value, // atau ->label() jika pakai custom label
-                'No Polish' => $item->no_polish,
+                'Asuransi'  => $item->name, // atau ->label() jika pakai custom label
+                'No Polish' => $item->insurance->no_polish,
                 'Rangka'    => $item->rangka,
                 'Mesin'     => $item->mesin,
                 'Tahun'     => $item->tahun,
-                'Harga'     => $item->harga,
-                'Start'     => $item->start,
-                'End'       => $item->end,
+                'Harga'     => $item->insurance->harga,
+                'End'       => $item->insurance->end_insurance,
             ];
         });
     }
@@ -48,7 +47,6 @@ class InsuranceExport implements FromCollection, WithHeadings
             'Mesin',
             'Tahun',
             'Harga',
-            'Start',
             'End',
         ];
     }

@@ -11,16 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('insurances', function (Blueprint $table) {
-            $table->id('id_insurances');
+        Schema::create('kendaraan', function (Blueprint $table) {
+            $table->id('id_kendaraan');
             $table->string('nopol');
-            $table->string('name');
+            $table->string('merk')->nullable();
+            $table->string('type')->nullable();
+            $table->string('model')->nullable();
+            $table->string('silinder')->nullable();
+            $table->string('warna')->nullable();
             $table->string('rangka');
             $table->string('mesin');
             $table->integer('tahun');
-            $table->integer('harga');
-            $table->string('start');
-            $table->string('end');
+            $table->string('pemilik')->nullable();
+            $table->string('jenis_kendaraan')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('insurances');
+        Schema::dropIfExists('kendaraan');
     }
 };

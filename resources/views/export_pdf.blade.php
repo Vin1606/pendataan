@@ -69,7 +69,7 @@
                     <td>{{ $index + 1 }}</td>
                     <td>{{ $as->nopol }}</td>
                     <td>{{ $as->name }}</td>
-                    <td>{{ $as->no_polish }}</td>
+                    <td>{{ $as->insurance->no_polish }}</td>
                     <td>{{ $as->rangka }}</td>
                     <td>{{ $as->mesin }}</td>
                     <td>{{ $as->tahun }}</td>

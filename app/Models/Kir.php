@@ -4,16 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Insurance extends Model
+class Kir extends Model
 {
-    protected $fillable = [
-        'no_polish',
-        'name',
-        'harga',
-        'end_insurance',
-    ];
+    protected $table = 'kir';
+    protected $primaryKey = 'id_kir';
 
-    protected $primaryKey = 'id_kendaraan';
+    protected $fillable = [
+        'no_kir',
+        'end_kir',
+    ];
 
     public function kendaraan()
     {

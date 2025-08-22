@@ -54,11 +54,6 @@
                 </button>
             </div>
         </form>
-
-        <p class="text-sm text-center text-gray-600 mt-3">
-            Belum punya akun? <a href="{{ route('register') }}" class="text-indigo-600 hover:underline">Daftar di
-                sini</a>
-        </p>
     </div>
     {{-- Font Awesome Kit --}}
     <script src="https://kit.fontawesome.com/c2752fde40.js" crossorigin="anonymous"></script>

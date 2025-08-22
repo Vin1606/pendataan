@@ -8,16 +8,15 @@ class Stnk extends Model
 {
     protected $table = 'stnk';
     protected $fillable = [
-        'nopol',
-        'type',
-        'rangka',
-        'mesin',
-        'tahun',
-        'harga',
         'plat',
         'pajak',
         'pemilik',
     ];
 
     protected $primaryKey = 'id_stnk';
+
+    public function kendaraan()
+    {
+        return $this->belongsTo(Kendaraan::class, 'id_kendaraan');
+    }
 }

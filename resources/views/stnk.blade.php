@@ -59,48 +59,54 @@
         <div class="mb-3">
             <h1 class="font-bold">DATA STNK SEMUA KENDARAAN</h1>
         </div>
-        <table class="w-full text-sm mt-3">
-            <thead class="bg-blue-500 text-white text-center">
-                <tr>
-                    <th class="border px-4 py-2">No</th>
-                    <th class="border px-4 py-2">Nomor Polisi</th>
-                    <th class="border px-4 py-2">Type</th>
-                    <th class="border px-4 py-2">No.Rangka</th>
-                    <th class="border px-4 py-2">No.Mesin</th>
-                    <th class="border px-4 py-2">Tahun</th>
-                    <th class="border px-4 py-2">Plat</th>
-                    <th class="border px-4 py-2">Pajak</th>
-                    <th class="border px-4 py-2">Pemilik</th>
-                    <th class="border px-4 py-2">Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($stnk as $index => $as)
-                    <tr class="text-center text-xs">
-                        <td class="border px-4 py-2">{{ $stnk->firstItem() + $index }}</td>
-                        <td class="border px-4 py-2">{{ $as->nopol }}</td>
-                        <td class="border px-4 py-2">{{ $as->type }}</td>
-                        <td class="border px-4 py-2">{{ $as->rangka }}</td>
-                        <td class="border px-4 py-2">{{ $as->mesin }}</td>
-                        <td class="border px-2 py-2">{{ $as->tahun }}</td>
-                        <td class="border px-2 py-2">{{ \Carbon\Carbon::parse($as->plat)->translatedFormat('d-m-Y') }}
-                        </td>
-                        <td class="border px-2 py-2">{{ \Carbon\Carbon::parse($as->pajak)->translatedFormat('d-m-Y') }}
-                        </td>
-                        <td class="border px-2 py-2">{{ $as->pemilik }}</td>
-                        <td class="border px-1 py-2">
-                            <a href="{{ route('edit_stnk', $as) }}" class="btn btn-primary text-xs mr-1"><i
-                                    class="fa-solid fa-pen" style="font-size: 10px"></i></a>
-                            <a href="{{ route('detail_stnk', $as) }}" class="btn btn-success text-xs ml-1"><i
-                                    class="fa-solid fa-eye" style="font-size: 10px"></i></a>
-                        </td>
+        <div class="overflow-x-auto">
+            <table class="min-w-max w-full text-sm mt-1">
+                <thead class="bg-blue-500 text-white text-center sticky top-0 z-10">
+                    <tr>
+                        <th class="border px-4 py-2">No</th>
+                        <th class="border px-4 py-2">Nomor Polisi</th>
+                        <th class="border px-4 py-2">Jenis Kendaraan</th>
+                        <th class="border px-4 py-2">No.Rangka</th>
+                        <th class="border px-4 py-2">No.Mesin</th>
+                        <th class="border px-4 py-2">Tahun</th>
+                        <th class="border px-4 py-2">Plat</th>
+                        <th class="border px-4 py-2">Pajak</th>
+                        <th class="border px-4 py-2">Pemilik</th>
+                        <th class="border px-4 py-2">Aksi</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach ($kendaraan as $index => $as)
+                        <tr class="text-center text-xs">
+                            <td class="border px-4 py-2">{{ $kendaraan->firstItem() + $index }}</td>
+                            <td class="border px-4 py-2">{{ $as->nopol }}</td>
+                            <td class="border px-4 py-2">{{ $as->jenis_kendaraan }}</td>
+                            <td class="border px-4 py-2">{{ $as->rangka }}</td>
+                            <td class="border px-4 py-2">{{ $as->mesin }}</td>
+                            <td class="border px-2 py-2">{{ $as->tahun }}</td>
+                            <td class="border px-2 py-2">
+                                {{ \Carbon\Carbon::parse($as->stnk->plat)->translatedFormat('d-m-Y') }}
+                            </td>
+                            <td class="border px-2 py-2">
+                                {{ \Carbon\Carbon::parse($as->stnk->pajak)->translatedFormat('d-m-Y') }}
+                            </td>
+                            <td class="border px-2 py-2">{{ $as->pemilik }}</td>
+                            <td class="border px-1 py-2">
+                                <a href="{{ route('edit_stnk', $as) }}" class="btn btn-primary text-xs mr-1"><i
+                                        class="fa-solid fa-pen" style="font-size: 10px"></i></a>
+                                <a href="{{ route('detail_stnk', $as) }}" class="btn btn-success text-xs"><i
+                                        class="fa-solid fa-eye" style="font-size: 10px"></i></a>
+                                <a href="{{ route('KuasaSTNKPDF', $as) }}" class="btn btn-success text-xs ml-1"><i
+                                        class="fa-solid fa-file" style="font-size: 10px"></i></a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
 
-        <div class="mt-6">
-            {{ $stnk->links() }}
+            <div class="mt-6">
+                {{ $kendaraan->links() }}
+            </div>
         </div>
     </div>
 </x-layout>

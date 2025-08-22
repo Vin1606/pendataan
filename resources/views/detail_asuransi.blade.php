@@ -6,7 +6,7 @@
     <x-slot:subtitle>{{ $subtitle }}</x-slot:subtitle>
 
     <div class="max-w-xl mx-auto bg-white p-6 rounded-xl shadow-lg">
-        <form action="{{ route('update_asuransi', $insurance) }}" method="POST" class="space-y-5">
+        <form action="{{ route('update_asuransi', $kendaraan) }}" method="POST" class="space-y-5">
             @csrf
             @method('PUT')
             <!-- Nopol -->
@@ -14,7 +14,7 @@
                 <label class="block text-sm font-medium text-gray-700 mb-1">Nomor Polisi</label>
                 <input type="text" name="nopol"
                     class="w-full px-2 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                    value="{{ $insurance->nopol }}" />
+                    value="{{ $kendaraan->nopol }}" />
                 @error('nopol')
                     <span class="text-red-500 text-xs">{{ $message }}</span>
                 @enderror
@@ -43,7 +43,7 @@
                 <label class="block text-sm font-medium text-gray-700 mb-1">Nomor Polish</label>
                 <input type="text" name="no_polish" placeholder="Nomor Polish"
                     class="w-full px-2 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                    value="{{ $insurance->no_polish }}" />
+                    value="{{ $kendaraan->insurance->no_polish }}" />
                 @error('no_polish')
                     <span class="text-red-500 text-xs">{{ $message }}</span>
                 @enderror
@@ -54,7 +54,7 @@
                 <label class="block text-sm font-medium text-gray-700 mb-1">Nomor Rangka</label>
                 <input type="text" name="rangka" placeholder="Nomor Rangka"
                     class="w-full px-2 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                    value="{{ $insurance->rangka }}" />
+                    value="{{ $kendaraan->rangka }}" />
                 @error('rangka')
                     <span class="text-red-500 text-xs">{{ $message }}</span>
                 @enderror
@@ -65,7 +65,7 @@
                 <label class="block text-sm font-medium text-gray-700 mb-1">Nomor Mesin</label>
                 <input type="text" name="mesin" placeholder="Nomor Mesin"
                     class="w-full px-2 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                    value="{{ $insurance->mesin }}" />
+                    value="{{ $kendaraan->mesin }}" />
                 @error('mesin')
                     <span class="text-red-500 text-xs">{{ $message }}</span>
                 @enderror
@@ -76,7 +76,7 @@
                 <label class="block text-sm font-medium text-gray-700 mb-1">Tahun</label>
                 <input type="text" name="tahun" placeholder="Tahun"
                     class="w-full px-2 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                    value="{{ $insurance->tahun }}" />
+                    value="{{ $kendaraan->tahun }}" />
                 @error('tahun')
                     <span class="text-red-500 text-xs">{{ $message }}</span>
                 @enderror
@@ -87,19 +87,8 @@
                 <label class="block text-sm font-medium text-gray-700 mb-1">Harga</label>
                 <input type="text" name="harga" placeholder="Harga"
                     class="w-full px-2 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                    value="{{ $insurance->harga }}" />
+                    value="{{ $kendaraan->insurance->harga }}" />
                 @error('harga')
-                    <span class="text-red-500 text-xs">{{ $message }}</span>
-                @enderror
-            </div>
-
-            <!-- Start -->
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal Mulai</label>
-                <input type="date" name="start"
-                    class="w-full px-2 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                    value="{{ $insurance->start }}" />
-                @error('start')
                     <span class="text-red-500 text-xs">{{ $message }}</span>
                 @enderror
             </div>
@@ -107,9 +96,9 @@
             <!-- End -->
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal Berakhir</label>
-                <input type="date" name="end"
+                <input type="date" name="end_insurance"
                     class="w-full px-2 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                    value="{{ $insurance->end }}" />
+                    value="{{ $kendaraan->insurance->end_insurance }}" />
                 @error('end')
                     <span class="text-red-500 text-xs">{{ $message }}</span>
                 @enderror

@@ -29,8 +29,8 @@ class StnkExport implements FromCollection, WithHeadings
                 'Rangka'    => $item->rangka,
                 'Mesin'     => $item->mesin,
                 'Tahun'     => $item->tahun,
-                'Plat'      => $item->plat,
-                'Pajak'     => $item->pajak,
+                'Plat'      => $item->stnk->plat,
+                'Pajak'     => $item->stnk->pajak,
                 'Pemilik'   => $item->pemilik,
             ];
         });

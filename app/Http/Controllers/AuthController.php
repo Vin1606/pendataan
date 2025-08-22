@@ -53,7 +53,7 @@ class AuthController extends Controller
         // Coba autentikasi
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate(); // Hindari session fixation
-            return redirect()->intended('/Asuransi'); // Redirect ke halaman setelah login
+            return redirect()->intended('/All'); // Redirect ke halaman setelah login
         }
 
         // Jika gagal
