@@ -6,12 +6,12 @@ use App\Http\Controllers\DataController;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 
 // Route for All Data Kendaraan
-Route::get('/All', [DataController::class, 'all'])->name('all.kendaraan');
+Route::get('/All', [DataController::class, 'all'])->name('all.kendaraan')->middleware('auth', 'ensureUserDataComplete');
 Route::get('/CreateKendaraan', [DataController::class, 'createkendaraan'])->name('create_kendaraan');
 Route::get('/EditAll/{kendaraan}', [DataController::class, 'editall'])->name('edit_all');
 
 // LINK GET ASURANSI
-Route::get('/Asuransi', [DataController::class, 'index'])->name('index');
+Route::get('/Asuransi', [DataController::class, 'index'])->name('index')->middleware('auth', 'ensureUserDataComplete');;
 Route::get('/CreateAsuransi', [DataController::class, 'create_asuransi'])->name('create_asuransi');
 Route::get('/exportInsurance', [DataController::class, 'export'])->name('exportInsurance');
 Route::get('/DetailAsuransi/{kendaraan}', [DataController::class, 'detail_asuransi'])->name('detail_asuransi');
@@ -19,7 +19,7 @@ Route::get('/export-pdf-insurance', [DataController::class, 'exportPDF'])->name(
 
 // LINK GET STNK
 Route::get('/exportStnk', [DataController::class, 'exportSTNK'])->name('exportStnk');
-Route::get('/DataStnk', [DataController::class, 'data_stnk'])->name('data.stnk');
+Route::get('/DataStnk', [DataController::class, 'data_stnk'])->name('data.stnk')->middleware('auth', 'ensureUserDataComplete');;
 Route::get('/CreateStnk', [DataController::class, 'create_stnk'])->name('create_stnk');
 Route::get('/EditStnk/{kendaraan}', [DataController::class, 'edit_stnk'])->name('edit_stnk');
 Route::get('/DetailStnk/{stnk}', [DataController::class, 'detail_stnk'])->name('detail_stnk');
