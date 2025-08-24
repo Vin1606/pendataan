@@ -60,6 +60,10 @@ Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('
 Route::post('/register', [AuthController::class, 'register'])->name('register.post');
 
 Route::get('/robots.txt', function () {
-    return response('User-agent: *\nDisallow:', 200)
+    $lines = [
+        'User-agent: *',
+        'Disallow: /',
+    ];
+    return response(implode("\n", $lines), 200)
         ->header('Content-Type', 'text/plain');
 });
