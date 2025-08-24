@@ -19,3 +19,42 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 </IfModule>
+
+# ================================
+# Tambahan Keamanan
+# ================================
+
+# Blokir akses ke file .env dan file tersembunyi
+<FilesMatch "^\.env">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+<FilesMatch "^\.git">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+<FilesMatch "^\.">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Blokir akses ke folder internal Laravel
+RedirectMatch 403 ^/storage/
+RedirectMatch 403 ^/vendor/
+RedirectMatch 403 ^/resources/
+RedirectMatch 403 ^/node_modules/
+
+# Proteksi MIME dan XSS
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options nosniff
+    Header set X-XSS-Protection "1; mode=block"
+</IfModule>
+
+# Optional: Cegah akses ke file backup atau konfigurasi
+<FilesMatch "\.(bak|config|sql|log|sh)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
