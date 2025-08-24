@@ -23,28 +23,6 @@
                     <i class="fa-solid fa-file-pdf mr-2"></i>Export PDF
                 </a>
             </div>
-
-            {{-- Form Filter --}}
-            <form method="GET" action="{{ route('data.kir') }}" class="flex flex-wrap gap-2 items-center">
-
-                <input type="text" name="keyword" placeholder="Cari Asuransi / Nopol"
-                    value="{{ request('keyword') }}"
-                    class="border border-gray-300 px-3 py-2 rounded text-sm w-full md:w-48">
-
-                <select name="bulan" class="border border-gray-300 px-3 py-2 rounded text-sm w-full md:w-40">
-                    <option value="">Pilih Bulan</option>
-                    @foreach (range(1, 12) as $bulan)
-                        <option value="{{ $bulan }}" {{ request('bulan') == $bulan ? 'selected' : '' }}>
-                            {{ \Carbon\Carbon::create()->month($bulan)->translatedFormat('F') }}
-                        </option>
-                    @endforeach
-                </select>
-
-                <button type="submit"
-                    class="bg-blue-600 text-white px-3 py-2 rounded-lg text-sm hover:bg-blue-700 transition">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </button>
-            </form>
         </div>
     </div>
 
