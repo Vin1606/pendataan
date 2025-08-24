@@ -11,8 +11,10 @@
                     <div class="ml-10 flex items-baseline space-x-4">
                         <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                         <x-navlink href="/All" :active="request()->is('All')">All Data</x-navlink>
-                        <x-navlink href="/Asuransi" :active="request()->is('Asuransi')">Asuransi</x-navlink>
-                        <x-navlink href="/DataStnk" :active="request()->is('DataStnk')">STNK</x-navlink>
+                        <x-navlink href="/Asuransi" :active="request()->is('Asuransi')">Data Asuransi</x-navlink>
+                        <x-navlink href="/DataStnk" :active="request()->is('DataStnk')">Data STNK</x-navlink>
+                        <x-navlink href="/DataKir" :active="request()->is('DataKir')">Data Kir</x-navlink>
+                        <x-navlink href="/DataKaryawan" :active="request()->is('DataKaryawan')">Data Karyawan</x-navlink>
                     </div>
                 </div>
             </div>

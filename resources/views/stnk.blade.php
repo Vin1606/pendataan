@@ -11,14 +11,8 @@
 
     <div class="mt-4 py-4 px-4 bg-white rounded-lg shadow-sm">
         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-
             {{-- Tombol Aksi --}}
             <div class="flex flex-wrap gap-2">
-                <a href="{{ route('create_stnk') }}"
-                    class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm shadow hover:bg-blue-700 transition">
-                    &plus; Tambah Data
-                </a>
-
                 <a href="{{ route('exportStnk', request()->query()) }}"
                     class="bg-green-600 text-white px-4 py-2 rounded-lg text-sm shadow hover:bg-green-700 transition">
                     <i class="fa-solid fa-file-excel mr-2"></i>Export Excel
@@ -33,8 +27,7 @@
             {{-- Form Filter --}}
             <form method="GET" action="{{ route('data.stnk') }}" class="flex flex-wrap gap-2 items-center">
 
-                <input type="text" name="keyword" placeholder="Cari Asuransi / Nopol"
-                    value="{{ request('keyword') }}"
+                <input type="text" name="keyword" placeholder="Cari" value="{{ request('keyword') }}"
                     class="border border-gray-300 px-3 py-2 rounded text-sm w-full md:w-48">
 
                 <select name="bulan" class="border border-gray-300 px-3 py-2 rounded text-sm w-full md:w-40">

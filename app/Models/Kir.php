@@ -12,10 +12,16 @@ class Kir extends Model
     protected $fillable = [
         'no_kir',
         'end_kir',
+        'id_karyawan',
     ];
 
     public function kendaraan()
     {
         return $this->belongsTo(Kendaraan::class, 'id_kendaraan');
+    }
+
+    public function karyawan()
+    {
+        return $this->belongsTo(Karyawan::class, 'id_karyawan');
     }
 }

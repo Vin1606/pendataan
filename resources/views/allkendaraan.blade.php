@@ -22,7 +22,7 @@
             {{-- Form Filter --}}
             <form method="GET" action="{{ route('all.kendaraan') }}" class="flex flex-wrap gap-2 items-center">
 
-                <input type="text" name="keyword" placeholder="Cari Asuransi / Nopol" value="{{ request('keyword') }}"
+                <input type="text" name="keyword" placeholder="Cari" value="{{ request('keyword') }}"
                     class="border border-gray-300 px-3 py-2 rounded text-sm w-full md:w-48">
 
                 <select name="bulan" class="border border-gray-300 px-3 py-2 rounded text-sm w-full md:w-40">

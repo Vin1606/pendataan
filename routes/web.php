@@ -8,7 +8,6 @@ use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 
 // Route for All Data Kendaraan
 Route::get('/All', [DataController::class, 'all'])->name('all.kendaraan')->middleware(['auth', EnsureUserDataIsComplete::class]);
-
 Route::get('/CreateKendaraan', [DataController::class, 'createkendaraan'])->name('create_kendaraan');
 Route::get('/EditAll/{kendaraan}', [DataController::class, 'editall'])->name('edit_all');
 
@@ -28,16 +27,27 @@ Route::get('/DetailStnk/{stnk}', [DataController::class, 'detail_stnk'])->name('
 Route::get('/export-pdf-stnk', [DataController::class, 'exportPDFSTNK'])->name('exportPDFSTNK');
 Route::get('/surat-kuasa-stnk/{kendaraan}', [DataController::class, 'KuasaSTNKPDF'])->name('KuasaSTNKPDF');
 
+// LINK GET KIR
+Route::get('/DataKir', [DataController::class, 'data_kir'])->name('data.kir')->middleware(['auth', EnsureUserDataIsComplete::class]);
+Route::get('/EditKir/{kendaraan}', [DataController::class, 'edit_kir'])->name('EditKir');
+Route::get('/surat-kuasa-kir', [DataController::class, 'KuasaKIRPDF'])->name('KuasaKIRPDF');
+
+// LINK GET KARYAWAN
+Route::get('/DataKaryawan', [DataController::class, 'data_karyawan'])->name('data.karyawan')->middleware(['auth', EnsureUserDataIsComplete::class]);
+Route::get('/CreateKaryawan', [DataController::class, 'create_karyawan'])->name('create_karyawan');
+
 // POST
 Route::post('/store', [DataController::class, 'store'])->name('store');
 Route::post('/StoreStnk', [DataController::class, 'store_stnk'])->name('store_stnk');
 Route::post('/StoreKendaraan', [DataController::class, 'store_kendaraan'])->name('store_kendaraan');
+Route::post('/StoreKaryawan', [DataController::class, 'store_karyawan'])->name('store_karyawan');
 Route::post('/upload/{stnk}', [DataController::class, 'uploadPhoto'])->name('stnk.upload');
 
 // PUT
 Route::put('/DetailAsuransi/{kendaraan}', [DataController::class, 'update_asuransi'])->name('update_asuransi');
 Route::put('/EditAll/{kendaraan}', [DataController::class, 'update_all'])->name('update_all');
 Route::put('/DetailStnk/{kendaraan}', [DataController::class, 'update_stnk'])->name('update_stnk');
+Route::put('/UpdateKir/{kendaraan}', [DataController::class, 'update_kir'])->name('update_kir');
 
 // DELETE
 Route::delete('/photo/{stnk}', [DataController::class, 'deletePhoto'])->name('photo.delete');

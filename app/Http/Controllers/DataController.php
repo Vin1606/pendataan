@@ -3,14 +3,16 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\Kir;
 use App\Models\Stnk;
+use App\Models\Karyawan;
 use Barryvdh\DomPDF\Pdf;
 use App\Models\Insurance;
+use App\Models\Kendaraan;
 use App\Exports\StnkExport;
 use App\Enums\TypeInsurance;
 use Illuminate\Http\Request;
 use App\Exports\InsuranceExport;
-use App\Models\Kendaraan;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 
@@ -587,4 +589,135 @@ class DataController extends Controller
 
     //     return back()->with('success', 'Berhasi Dihapus');
     // }
+
+    // KIR
+    // ---------------------------------------
+    public function data_kir(Request $request)
+    {
+        $title = 'KIR';
+        $subtitle = 'HALAMAN KIR';
+
+        $query = Kendaraan::with('kir') // pastikan relasi karyawan dimuat
+            ->whereHas('kir', function ($query) {
+                $query->whereNotNull('end_kir');
+            });
+
+        // 🔍 Filter berdasarkan keyword
+        if ($request->filled('keyword')) {
+            $query->whereHas('kir', function ($q) use ($request) {
+                $keyword = $request->keyword;
+                $q->where('no_kir', 'like', '%' . $keyword . '%')
+                    ->orWhere('nopol', 'like', '%' . $keyword . '%')
+                    ->orWhere('tahun', 'like', '%' . $keyword . '%')
+                    ->orWhere('jenis_kendaraan', 'like', '%' . $keyword . '%');
+            });
+        }
+
+        // 📅 Filter berdasarkan bulan dan tahun
+        if ($request->filled('bulan')) {
+            $query->whereHas('kir', function ($q) use ($request) {
+                $q->whereMonth('end_kir', $request->bulan)
+                    ->whereYear('end_kir', $request->tahun ?? now()->year);
+            });
+        }
+
+        $kendaraan = $query->paginate(10)->withQueryString();
+
+        return view('kir', compact('title', 'subtitle', 'kendaraan'));
+    }
+
+    public function edit_kir(Kendaraan $kendaraan)
+    {
+        $title = "Edit Data";
+        $subtitle = "Edit Kir";
+        $karyawans = Karyawan::all();
+        return view('edit_kir', compact('title', 'subtitle', 'kendaraan', 'karyawans'));
+    }
+
+    public function update_kir(Request $request, Kendaraan $kendaraan)
+    {
+        $validated = $request->validate([
+            'nopol' => 'required|string',
+            'rangka' => 'required|string|min:17|max:17',
+            'mesin' => 'required|string',
+            'tahun' => 'required|integer',
+            'id_karyawan' => 'required|exists:karyawan,id_karyawan',
+            'no_kir' => 'required|string',
+            'end_kir' => 'required|string',
+        ]);
+        // Simpan kendaraan dulu
+        $kendaraan->update([
+            'nopol' => $request->nopol,
+            'rangka' => $request->rangka,
+            'mesin' => $request->mesin,
+            'tahun' => $request->tahun,
+        ]);
+        // Simpan stnk dengan referensi kendaraan
+        $kendaraan->kir()->updateOrCreate(
+            ['id_kendaraan' => $kendaraan->id_kendaraan], // ini kunci pencarian
+            [ // ini data yang akan diupdate atau dibuat
+                'no_kir' => $request->no_kir,
+                'end_kir' => $request->end_kir,
+                'id_karyawan' => $request->id_karyawan,
+                'id_kendaraan' => $kendaraan->id_kendaraan,
+            ]
+        );
+        return redirect()->route('data.kir')->with('success', 'Data Updated!');
+    }
+
+    public function KuasaKIRPDF(Request $request)
+    {
+        $query = Kendaraan::with(['kir.karyawan']) // eager load relasi kir dan karyawan
+            ->whereHas('kir', function ($q) use ($request) {
+                $q->whereNotNull('end_kir');
+
+                if ($request->filled('id_karyawan')) {
+                    $q->where('id_karyawan', $request->id_karyawan);
+                }
+
+                if ($request->filled('bulan')) {
+                    $q->whereMonth('end_kir', $request->bulan)
+                        ->whereYear('end_kir', $request->tahun ?? now()->year);
+                }
+            });
+
+        $kendaraan = $query->first();
+        // Gunakan instance DomPDF
+        $pdf = app('dompdf.wrapper');
+        $pdf->loadView('surat_kuasa_kir', compact('kendaraan'))
+            ->setPaper('A4', 'portrait');
+
+        return $pdf->stream('surat-kuasa-kir.pdf');
+    }
+
+    // Karyawan
+    // ---------------------------------------
+    public function data_karyawan(Request $request)
+    {
+        $title = 'KARYAWAN';
+        $subtitle = 'HALAMAN KARYAWAN';
+        $karyawans = Karyawan::paginate(10);
+        return view('karyawan', compact('title', 'subtitle', 'karyawans'));
+    }
+
+    public function create_karyawan()
+    {
+        $title = "Create Data";
+        $subtitle = "Create New Karyawan";
+
+        return view('create_karyawan', compact('title', 'subtitle'));
+    }
+
+    public function store_karyawan(Request $request)
+    {
+        $validated = $request->validate([
+            'nama' => 'required|string',
+            'no_ktp' => 'required|string|unique:karyawan,no_ktp',
+            'alamat' => 'required|string',
+            'pekerjaan' => 'required|string',
+        ]);
+        Karyawan::create($validated);
+
+        return redirect()->route('data.karyawan')->with('success', 'Data Added!');
+    }
 }
