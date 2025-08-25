@@ -667,17 +667,7 @@ class DataController extends Controller
 
     public function KuasaKIRPDF(Request $request)
     {
-        // Validasi minimal
-        $request->validate([
-            'id_kendaraan' => 'required|integer',
-            'id_karyawan' => 'nullable|integer',
-            'bulan' => 'nullable|integer|min:1|max:12',
-            'tahun' => 'nullable|integer|min:2000',
-        ]);
-
-        // Query kendaraan dengan relasi kir dan karyawan
-        $kendaraan = Kendaraan::with(['kir.karyawan'])
-            ->where('id_kendaraan', $request->id_kendaraan)
+        $query = Kendaraan::with(['kir.karyawan']) // eager load relasi kir dan karyawan
             ->whereHas('kir', function ($q) use ($request) {
                 $q->whereNotNull('end_kir');
 
@@ -689,15 +679,11 @@ class DataController extends Controller
                     $q->whereMonth('end_kir', $request->bulan)
                         ->whereYear('end_kir', $request->tahun ?? now()->year);
                 }
-            })
-            ->first();
+            });
 
-        // Validasi jika tidak ditemukan
-        if (!$kendaraan) {
-            return back()->withErrors('Data kendaraan tidak ditemukan atau tidak memiliki KIR yang sesuai.');
-        }
+        $filteredData = $query->get();
 
-        // Generate PDF
+        // Gunakan instance DomPDF
         $pdf = app('dompdf.wrapper');
         $pdf->loadView('surat_kuasa_kir', compact('kendaraan'))
             ->setPaper('A4', 'portrait');
