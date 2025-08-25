@@ -30,7 +30,7 @@ Route::get('/surat-kuasa-stnk/{kendaraan}', [DataController::class, 'KuasaSTNKPD
 // LINK GET KIR
 Route::get('/DataKir', [DataController::class, 'data_kir'])->name('data.kir')->middleware(['auth', EnsureUserDataIsComplete::class]);
 Route::get('/EditKir/{kendaraan}', [DataController::class, 'edit_kir'])->name('EditKir');
-Route::get('/surat-kuasa-kir', [DataController::class, 'KuasaKIRPDF'])->name('KuasaKIRPDF');
+Route::get('/surat-kuasa-kir/{kendaraan}', [DataController::class, 'KuasaKIRPDF'])->name('KuasaKIRPDF');
 
 // LINK GET KARYAWAN
 Route::get('/DataKaryawan', [DataController::class, 'data_karyawan'])->name('data.karyawan')->middleware(['auth', EnsureUserDataIsComplete::class]);

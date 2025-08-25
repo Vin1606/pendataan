@@ -84,9 +84,8 @@
                             <td class="border px-1 py-2">
                                 <a href="{{ route('EditKir', $as->id_kendaraan) }}" class="btn btn-success text-xs"><i
                                         class="fa-solid fa-eye" style="font-size: 10px"></i></a>
-                                <a href="{{ route('KuasaKIRPDF', request()->query()) }}"
-                                    class="btn btn-danger text-xs ml-2"><i class="fa-solid fa-file-pdf"
-                                        style="font-size: 10px"></i></a>
+                                <a href="{{ route('KuasaKIRPDF', $as) }}" class="btn btn-danger text-xs ml-2"><i
+                                        class="fa-solid fa-file-pdf" style="font-size: 10px"></i></a>
                             </td>
                         </tr>
                     @endforeach
