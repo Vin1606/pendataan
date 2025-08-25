@@ -189,8 +189,8 @@
                     <option value="Box">Box</option>
                     <option value="Bus">Bus</option>
                     <option value="Hiace">Hiace</option>
-                    <option value="Hiace">Pribadi</option>
-                    <option value="Hiace">Storing</option>
+                    <option value="Pribadi">Pribadi</option>
+                    <option value="Storing">Storing</option>
                 </select>
             </div>
 
