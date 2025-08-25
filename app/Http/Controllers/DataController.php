@@ -665,7 +665,7 @@ class DataController extends Controller
         return redirect()->route('data.kir')->with('success', 'Data Updated!');
     }
 
-    public function KuasaKIRPDF(Request $request)
+    public function KuasaKIRPDF(Request $request, Kendaraan $kendaraan)
     {
         $query = Kendaraan::with(['kir.karyawan']) // eager load relasi kir dan karyawan
             ->whereHas('kir', function ($q) use ($request) {
