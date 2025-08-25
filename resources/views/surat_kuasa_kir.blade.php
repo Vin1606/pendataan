@@ -104,7 +104,8 @@
             <tr>
                 <td style="width: 33%;">Nomor Polisi</td>
                 <td style="width: 2%;">:</td>
-                <td style="width: 170%;">{{ $kendaraan->nopol }}</td>
+                <td style="width: 170%;">{{ $kendaraan->nopol ?? '-' }}
+                </td>
             </tr>
             <tr>
                 <td style="width: 33%;">Merk Mobil</td>
