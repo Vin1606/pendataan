@@ -685,7 +685,7 @@ class DataController extends Controller
 
         // Gunakan instance DomPDF
         $pdf = app('dompdf.wrapper');
-        $pdf->loadView('surat_kuasa_kir', compact('kendaraan'))
+        $pdf->loadView('surat_kuasa_kir', ['data' => $filteredData], compact('kendaraan'))
             ->setPaper('A4', 'portrait');
 
         return $pdf->stream('surat-kuasa-kir.pdf');
