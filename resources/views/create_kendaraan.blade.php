@@ -175,6 +175,7 @@
                     <option value="TFT">TFT</option>
                     <option value="RMA">RMA</option>
                     <option value="TERANG FAJAR">TERANG FAJAR</option>
+                    <option value="JUNINGSIH SUTJIONO">JUNINGSIH SUTJIONO</option>
                 </select>
             </div>
 
@@ -188,6 +189,8 @@
                     <option value="Box">Box</option>
                     <option value="Bus">Bus</option>
                     <option value="Hiace">Hiace</option>
+                    <option value="Hiace">Pribadi</option>
+                    <option value="Hiace">Storing</option>
                 </select>
             </div>
 
