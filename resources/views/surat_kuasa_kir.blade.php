@@ -110,17 +110,20 @@
             <tr>
                 <td style="width: 33%;">Merk Mobil</td>
                 <td>:</td>
-                <td>{{ $kendaraan->merk }}</td>
+                <td>{{ $kendaraan->merk ?? '-' }}
+                </td>
             </tr>
             <tr>
                 <td style="width: 33%;">Nomor Rangka</td>
                 <td>:</td>
-                <td style="width: 90%;">{{ $kendaraan->rangka }}</td>
+                <td style="width: 90%;">{{ $kendaraan->rangka ?? '-' }}
+                </td>
             </tr>
             <tr>
                 <td style="width: 33%;">Nomor Mesin</td>
                 <td>:</td>
-                <td style="width: 90%;">{{ $kendaraan->mesin }}</td>
+                <td style="width: 90%;">{{ $kendaraan->mesin ?? '-' }}
+                </td>
             </tr>
         </table>
     </div>
