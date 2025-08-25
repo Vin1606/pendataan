@@ -681,7 +681,7 @@ class DataController extends Controller
                 }
             });
 
-        $kendaraan = $query->get();
+        $kendaraan = $query->first();
         // Gunakan instance DomPDF
         $pdf = app('dompdf.wrapper');
         $pdf->loadView('surat_kuasa_kir', compact('kendaraan'))
