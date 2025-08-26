@@ -40,6 +40,21 @@
     Deny from all
 </FilesMatch>
 
+<FilesMatch "^(composer\.lock|\.htaccess|\.bashrc|\.bash_profile)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+<FilesMatch "^(?!index\.php).*\.php$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+<Files "layout.blade.php">
+    Order allow,deny
+    Deny from all
+</Files>
+
 # Blokir akses ke folder internal Laravel
 RedirectMatch 403 ^/storage/
 RedirectMatch 403 ^/vendor/
