@@ -22,7 +22,7 @@
             <!-- No Polish -->
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Nomor Polish</label>
-                <input type="text" name="no_polish" value="{{ $kendaraan->insurance->no_polish }}"
+                <input type="text" name="no_polish" value="{{ $kendaraan->insurance->no_polish ?? '-' }}"
                     class="w-full px-2 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" />
                 @error('no_polish')
                     <span class="text-red-500 text-xs">{{ $message }}</span>
@@ -32,7 +32,7 @@
             <!-- No Kir -->
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Nomor Kir</label>
-                <input type="text" name="no_kir" value="{{ $kendaraan->kir->no_kir ?? 'Kendaraan Tidak Ada Kir' }}"
+                <input type="text" name="no_kir" value="{{ $kendaraan->kir->no_kir ?? '-' }}"
                     class="w-full px-2 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" />
                 @error('no_kir')
                     <span class="text-red-500 text-xs">{{ $message }}</span>
@@ -54,7 +54,7 @@
                 <label class="block text-sm font-medium text-gray-700 mb-1">Asuransi</label>
                 <select name="name"
                     class="w-full px-2 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white">
-                    <option selected>{{ $kendaraan->insurance->name }}</option>
+                    <option selected>{{ $kendaraan->insurance->name ?? '-' }}</option>
                     <option value="Sunday">Sunday</option>
                     <option value="Bosowa">Bosowa</option>
                     <option value="Abda">Abda</option>
@@ -64,6 +64,7 @@
                     <option value="Malaca Trust">Malaca Trust</option>
                     <option value="ACA">ACA</option>
                     <option value="Zurich">Zurich</option>
+                    <option value="Maximus">Maximus</option>
                 </select>
             </div>
 
@@ -90,7 +91,7 @@
             <!-- Harga -->
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Harga</label>
-                <input type="text" name="harga" value="{{ $kendaraan->insurance->harga }}"
+                <input type="text" name="harga" value="{{ $kendaraan->insurance->harga ?? 0 }}"
                     class="w-full px-2 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" />
                 @error('harga')
                     <span class="text-red-500 text-xs">{{ $message }}</span>
@@ -123,7 +124,7 @@
                 <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal Berakhir Asuransi</label>
                 <input type="date" name="end_insurance"
                     class="w-full px-2 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                    value="{{ $kendaraan->insurance->end_insurance }}" />
+                    value="{{ $kendaraan->insurance->end_insurance ?? '-' }}" />
                 @error('end_insurance')
                     <span class="text-red-500 text-xs">{{ $message }}</span>
                 @enderror

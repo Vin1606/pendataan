@@ -19,10 +19,10 @@ return new class extends Migration
                 ->references('id_kendaraan')
                 ->on('kendaraan')
                 ->onDelete('cascade');
-            $table->string('name');
-            $table->string('no_polish');
-            $table->integer('harga');
-            $table->string('end_insurance');
+            $table->string('name')->nullable();
+            $table->string('no_polish')->nullable();
+            $table->integer('harga')->nullable();
+            $table->string('end_insurance')->nullable();
             $table->timestamps();
         });
     }

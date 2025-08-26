@@ -76,14 +76,16 @@
                         <tr class="text-center text-xs">
                             <td class="border px-4 py-2">{{ $kendaraan->firstItem() + $index }}</td>
                             <td class="border px-4 py-2">{{ $as->nopol }}</td>
-                            <td class="border px-4 py-2">{{ $as->insurance->name }}</td>
-                            <td class="border px-4 py-2">{{ $as->insurance->no_polish }}</td>
+                            <td class="border px-4 py-2">{{ $as->insurance->name ?? '-' }}</td>
+                            <td class="border px-4 py-2">{{ $as->insurance->no_polish ?? '-' }}</td>
                             <td class="border px-4 py-2">{{ $as->rangka }}</td>
                             <td class="border px-4 py-2">{{ $as->mesin }}</td>
                             <td class="border px-2 py-2">{{ $as->tahun }}</td>
-                            <td class="border px-2 py-2">{{ Number::currency($as->insurance->harga, in: 'IDR') }}</td>
                             <td class="border px-2 py-2">
-                                {{ \Carbon\Carbon::parse($as->insurance->end_insurance)->translatedFormat('d-m-Y') }}
+                                {{ $as->insurance?->harga ? Number::currency($as->insurance->harga, in: 'IDR') : '-' }}
+                            </td>
+                            <td class="border px-2 py-2">
+                                {{ $as->insurance?->end_insurance ? \Carbon\Carbon::parse($as->insurance->end_insurance)->translatedFormat('d-m-Y') : '-' }}
                             </td>
                             <td class="border px-1 py-2">
                                 <a href="{{ route('detail_asuransi', $as) }}" class="btn btn-primary text-xs"><i

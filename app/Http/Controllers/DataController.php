@@ -36,7 +36,8 @@ class DataController extends Controller
                         ->orWhere('tahun', 'like', '%' . $keyword . '%');
                 })
                     ->orWhereHas('stnk', function ($q) use ($keyword) {
-                        $q->where('pajak', 'like', '%' . $keyword . '%');
+                        $q->where('pajak', 'like', '%' . $keyword . '%')
+                            ->orWhere('nopol', 'like', '%' . $keyword . '%');
                     });
             });
         }
@@ -77,10 +78,10 @@ class DataController extends Controller
             'tahun' => 'required|integer',
             'pemilik' => 'required|string',
             'jenis_kendaraan' => 'required|string',
-            'name' => 'required|string',
-            'no_polish' => 'required|string',
-            'harga' => 'required|integer',
-            'end_insurance' => 'required|string',
+            'name' => 'nullable|string',
+            'no_polish' => 'nullable|string',
+            'harga' => 'nullable|integer',
+            'end_insurance' => 'nullable|string',
             'plat' => 'required|string',
             'pajak' => 'required|string',
             'no_kir' => 'nullable|string',
@@ -101,13 +102,15 @@ class DataController extends Controller
             'tahun' => $request->tahun,
         ]);
         // Simpan asuransi dengan referensi kendaraan
-        $kendaraan->insurance()->create([
-            'id_kendaraan' => $kendaraan->id_kendaraan,
-            'name' => $request->name,
-            'no_polish' => $request->no_polish,
-            'harga' => $request->harga,
-            'end_insurance' => $request->end_insurance,
-        ]);
+        if ($request->filled('name') || $request->filled('no_polish') || $request->filled('harga') || $request->filled('end_insurance')) {
+            $kendaraan->insurance()->create([
+                'id_kendaraan' => $kendaraan->id_kendaraan,
+                'name' => $request->name,
+                'no_polish' => $request->no_polish,
+                'harga' => $request->harga,
+                'end_insurance' => $request->end_insurance,
+            ]);
+        }
         // Simpan stnk dengan referensi kendaraan
         $kendaraan->stnk()->create([
             'id_kendaraan' => $kendaraan->id_kendaraan,
@@ -148,10 +151,10 @@ class DataController extends Controller
             'tahun' => 'required|integer',
             'pemilik' => 'required|string',
             'jenis_kendaraan' => 'required|string',
-            'name' => 'required|string',
-            'no_polish' => 'required|string',
-            'harga' => 'required|integer',
-            'end_insurance' => 'required|string',
+            'name' => 'nullable|string',
+            'no_polish' => 'nullable|string',
+            'harga' => 'nullable|integer',
+            'end_insurance' => 'nullable|string',
             'plat' => 'required|string',
             'pajak' => 'required|string',
             'no_kir' => 'nullable|string',
@@ -173,15 +176,20 @@ class DataController extends Controller
         ]);
 
         // Simpan asuransi dengan referensi kendaraan
-        $kendaraan->insurance()->updateOrCreate(
-            ['id_kendaraan' => $kendaraan->id_kendaraan], // ini kunci pencarian
-            [ // ini data yang akan diupdate atau dibuat
-                'name' => $request->name,
-                'no_polish' => $request->no_polish,
-                'harga' => $request->harga,
-                'end_insurance' => $request->end_insurance,
-            ]
-        );
+        if ($request->filled('name') || $request->filled('no_polish') || $request->filled('harga') || $request->filled('end_insurance')) {
+            $kendaraan->insurance()->updateOrCreate(
+                ['id_kendaraan' => $kendaraan->id_kendaraan], // ini kunci pencarian
+                [ // ini data yang akan diupdate atau dibuat
+                    'name' => $request->name,
+                    'no_polish' => $request->no_polish,
+                    'harga' => $request->harga,
+                    'end_insurance' => $request->end_insurance,
+                ]
+            );
+        } else {
+            // Jika tidak ada data asuransi, hapus jika ada
+            $kendaraan->insurance()->delete();
+        }
         // Simpan stnk dengan referensi kendaraan
         $kendaraan->stnk()->updateOrCreate(
             ['id_kendaraan' => $kendaraan->id_kendaraan], // ini kunci pencarian
@@ -288,13 +296,13 @@ class DataController extends Controller
     {
         $validated = $request->validate([
             'nopol' => 'required|string',
-            'name' => 'required|string',
-            'no_polish' => 'required|string',
+            'name' => 'nullable|string',
+            'no_polish' => 'nullable|string',
             'rangka' => 'required|string|min:17|max:17',
             'mesin' => 'required|string',
             'tahun' => 'required|integer',
-            'harga' => 'required|integer',
-            'end_insurance' => 'required|string',
+            'harga' => 'nullable|integer',
+            'end_insurance' => 'nullable|string',
         ]);
         // Simpan kendaraan dulu
         $kendaraan->update([
@@ -305,15 +313,20 @@ class DataController extends Controller
         ]);
 
         // Simpan asuransi dengan referensi kendaraan
-        $kendaraan->insurance()->updateOrCreate(
-            ['id_kendaraan' => $kendaraan->id_kendaraan], // ini kunci pencarian
-            [ // ini data yang akan diupdate atau dibuat
-                'name' => $request->name,
-                'no_polish' => $request->no_polish,
-                'harga' => $request->harga,
-                'end_insurance' => $request->end_insurance,
-            ]
-        );
+        if ($request->filled('name') || $request->filled('no_polish') || $request->filled('harga') || $request->filled('end_insurance')) {
+            $kendaraan->insurance()->updateOrCreate(
+                ['id_kendaraan' => $kendaraan->id_kendaraan], // ini kunci pencarian
+                [ // ini data yang akan diupdate atau dibuat
+                    'name' => $request->name,
+                    'no_polish' => $request->no_polish,
+                    'harga' => $request->harga,
+                    'end_insurance' => $request->end_insurance,
+                ]
+            );
+        } else {
+            // Jika tidak ada data asuransi, hapus jika ada
+            $kendaraan->insurance()->delete();
+        }
 
         return redirect()->route('index')->with('success', 'Data Updated!');
     }

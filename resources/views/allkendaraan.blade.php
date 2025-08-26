@@ -56,11 +56,10 @@
                         <th class="border px-4 py-2">No</th>
                         <th class="border px-4 py-2">Nomor Polisi</th>
                         <th class="border px-4 py-2">Tahun</th>
+                        <th class="border px-4 py-2">Merk</th>
+                        <th class="border px-4 py-2">Type</th>
                         <th class="border px-4 py-2">Pemilik</th>
-                        <th class="border px-4 py-2">Asuransi</th>
-                        <th class="border px-4 py-2">Harga</th>
-                        <th class="border px-4 py-2">End Insurance</th>
-                        <th class="border px-4 py-2">Pajak Kendaran</th>
+                        <th class="border px-4 py-2">Warna</th>
                         <th class="border px-4 py-2">Jenis Kendaraan</th>
                         <th class="border px-4 py-2">Aksi</th>
                     </tr>
@@ -71,15 +70,10 @@
                             <td class="border px-4 py-2">{{ $kendaraan->firstItem() + $index }}</td>
                             <td class="border px-4 py-2">{{ $as->nopol }}</td>
                             <td class="border px-2 py-2">{{ $as->tahun }}</td>
-                            <td class="border px-2 py-2">{{ $as->pemilik }}</td>
-                            <td class="border px-4 py-2">{{ $as->insurance->name }}</td>
-                            <td class="border px-4 py-2">{{ Number::currency($as->insurance->harga, in: 'IDR') }}</td>
-                            <td class="border px-4 py-2">
-                                {{ \Carbon\Carbon::parse($as->insurance->end_insurance)->translatedFormat('d-m-Y') }}
-                            </td>
-                            <td class="border px-4 py-2">
-                                {{ \Carbon\Carbon::parse($as->stnk->pajak)->translatedFormat('d-m-Y') }}
-                            </td>
+                            <td class="border px-2 py-2">{{ $as->merk }}</td>
+                            <td class="border px-2 py-2">{{ $as->type }}</td>
+                            <td class="border px-4 py-2">{{ $as->pemilik }}</td>
+                            <td class="border px-4 py-2">{{ $as->warna }}</td>
                             <td class="border px-2 py-2">{{ $as->jenis_kendaraan }}</td>
                             <td class="border px-1 py-2">
                                 <a href="{{ route('edit_all', $as) }}" class="btn btn-primary text-xs"><i

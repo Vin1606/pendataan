@@ -14,7 +14,7 @@
                 <label class="block text-sm font-medium text-gray-700 mb-1">Nomor Polisi</label>
                 <input type="text" name="nopol"
                     class="w-full px-2 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                    value="{{ $kendaraan->nopol }}" />
+                    value="{{ $kendaraan->nopol ?? '-' }}" />
                 @error('nopol')
                     <span class="text-red-500 text-xs">{{ $message }}</span>
                 @enderror
@@ -25,7 +25,8 @@
                 <label class="block text-sm font-medium text-gray-700 mb-1">Asuransi</label>
                 <select name="name"
                     class="w-full px-2 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white">
-                    <option disabled selected>Pilih Asuransi</option>
+                    <option selected>{{ $kendaraan->insurance->name ?? '-' }}</option>
+                    <option value="Tidak Ada">Tidak Ada</option>
                     <option value="Sunday">Sunday</option>
                     <option value="Bosowa">Bosowa</option>
                     <option value="Abda">Abda</option>
@@ -43,7 +44,7 @@
                 <label class="block text-sm font-medium text-gray-700 mb-1">Nomor Polish</label>
                 <input type="text" name="no_polish" placeholder="Nomor Polish"
                     class="w-full px-2 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                    value="{{ $kendaraan->insurance->no_polish }}" />
+                    value="{{ $kendaraan->insurance->no_polish ?? '-' }}" />
                 @error('no_polish')
                     <span class="text-red-500 text-xs">{{ $message }}</span>
                 @enderror
@@ -87,7 +88,7 @@
                 <label class="block text-sm font-medium text-gray-700 mb-1">Harga</label>
                 <input type="text" name="harga" placeholder="Harga"
                     class="w-full px-2 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                    value="{{ $kendaraan->insurance->harga }}" />
+                    value="{{ $kendaraan->insurance->harga ?? 0 }}" />
                 @error('harga')
                     <span class="text-red-500 text-xs">{{ $message }}</span>
                 @enderror
@@ -98,8 +99,8 @@
                 <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal Berakhir</label>
                 <input type="date" name="end_insurance"
                     class="w-full px-2 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                    value="{{ $kendaraan->insurance->end_insurance }}" />
-                @error('end')
+                    value="{{ $kendaraan->insurance->end_insurance ?? '-' }}" />
+                @error('end_insurance')
                     <span class="text-red-500 text-xs">{{ $message }}</span>
                 @enderror
             </div>
