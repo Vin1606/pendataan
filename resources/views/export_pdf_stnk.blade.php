@@ -48,7 +48,7 @@
 </head>
 
 <body>
-    <h1>DATA ASURANSI SEMUA KENDARAAN</h1>
+    <h1>DATA STNK SEMUA KENDARAAN</h1>
 
     <table>
         <thead>
