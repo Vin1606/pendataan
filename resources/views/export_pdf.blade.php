@@ -74,7 +74,7 @@
                     <td>{{ $as->mesin }}</td>
                     <td>{{ $as->tahun }}</td>
                     <td>Rp{{ number_format($as->insurance->harga, 0, ',', '.') }}</td>
-                    <td>{{ \Carbon\Carbon::parse($as->insurance->end)->format('d-m-Y') }}</td>
+                    <td>{{ \Carbon\Carbon::parse($as->insurance->end_insurance)->format('d-m-Y') }}</td>
                 </tr>
             @endforeach
         </tbody>
