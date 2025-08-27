@@ -68,13 +68,13 @@
                 <tr>
                     <td>{{ $index + 1 }}</td>
                     <td>{{ $as->nopol }}</td>
-                    <td>{{ $as->name }}</td>
+                    <td>{{ $as->insurance->name }}</td>
                     <td>{{ $as->insurance->no_polish }}</td>
                     <td>{{ $as->rangka }}</td>
                     <td>{{ $as->mesin }}</td>
                     <td>{{ $as->tahun }}</td>
                     <td>Rp{{ number_format($as->harga, 0, ',', '.') }}</td>
-                    <td>{{ \Carbon\Carbon::parse($as->end)->format('d-m-Y') }}</td>
+                    <td>{{ \Carbon\Carbon::parse($as->insurance->end)->format('d-m-Y') }}</td>
                 </tr>
             @endforeach
         </tbody>
