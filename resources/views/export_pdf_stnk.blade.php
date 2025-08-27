@@ -55,13 +55,10 @@
             <tr>
                 <th>No</th>
                 <th>Nomor Polisi</th>
-                <th>Type</th>
                 <th>No. Rangka</th>
                 <th>No. Mesin</th>
-                <th>Tahun</th>
                 <th>Plat</th>
                 <th>Pajak</th>
-                <th>Pemilik</th>
             </tr>
         </thead>
         <tbody>
@@ -69,13 +66,10 @@
                 <tr>
                     <td>{{ $index + 1 }}</td>
                     <td>{{ $as->nopol }}</td>
-                    <td>{{ $as->type }}</td>
                     <td>{{ $as->rangka }}</td>
                     <td>{{ $as->mesin }}</td>
-                    <td>{{ $as->tahun }}</td>
-                    <td>{{ \Carbon\Carbon::parse($as->plat)->format('d-m-Y') }}</td>
-                    <td>{{ \Carbon\Carbon::parse($as->pajak)->format('d-m-Y') }}</td>
-                    <td>{{ $as->pemilik }}</td>
+                    <td>{{ \Carbon\Carbon::parse($as->stnk->plat)->format('d-m-Y') }}</td>
+                    <td>{{ \Carbon\Carbon::parse($as->stnk->pajak)->format('d-m-Y') }}</td>
                 </tr>
             @endforeach
         </tbody>
