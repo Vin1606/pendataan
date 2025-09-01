@@ -21,14 +21,16 @@
 
             <!-- Asuransi -->
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Type Kendaraan</label>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Jenis Kendaraan</label>
                 <select name="type"
                     class="w-full px-2 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white">
-                    <option disabled selected>Jenis Kendaraan</option>
+                    <option selected>{{ $kendaraan->jenis_kendaraan }}</option>
                     <option value="Dump Truck">Dump Truck</option>
                     <option value="Box">Box</option>
                     <option value="Bus">Bus</option>
                     <option value="Hiace">Hiace</option>
+                    <option value="Pribadi">Pribadi</option>
+                    <option value="Storing">Storing</option>
                 </select>
             </div>
 
@@ -67,10 +69,11 @@
                 <label class="block text-sm font-medium text-gray-700 mb-1">Pemilik Kendaraan</label>
                 <select name="pemilik"
                     class="w-full px-2 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white">
-                    <option disabled selected>Pemilik</option>
+                    <option selected>{{ $kendaraan->pemilik }}</option>
                     <option value="TFT">TFT</option>
                     <option value="RMA">RMA</option>
                     <option value="TERANG FAJAR">TERANG FAJAR</option>
+                    <option value="JUNINGSIH SUTJIONO">JUNINGSIH SUTJIONO</option>
                 </select>
             </div>
 
@@ -78,7 +81,8 @@
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal Plat</label>
                 <input type="date" name="plat"
-                    class="w-full px-2 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+                    class="w-full px-2 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                    value="{{ $kendaraan->stnk->plat }}" />
                 @error('plat')
                     <span class="text-red-500 text-xs">{{ $message }}</span>
                 @enderror
@@ -88,7 +92,8 @@
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal Pajak</label>
                 <input type="date" name="pajak"
-                    class="w-full px-2 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+                    class="w-full px-2 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                    value="{{ $kendaraan->stnk->pajak }}" />
                 @error('pajak')
                     <span class="text-red-500 text-xs">{{ $message }}</span>
                 @enderror

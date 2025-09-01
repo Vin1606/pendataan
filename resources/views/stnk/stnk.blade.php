@@ -70,7 +70,9 @@
                 </thead>
                 <tbody>
                     @foreach ($kendaraan as $index => $as)
-                        <tr class="text-center text-xs">
+                        <tr @if ($as->is_expired) style="background-color: #dc3545; color: white;"  
+                            @elseif($as->is_upcoming) style="background-color: #fff3cd;" @endif
+                            class="text-center text-xs">
                             <td class="border px-4 py-2">{{ $kendaraan->firstItem() + $index }}</td>
                             <td class="border px-4 py-2">{{ $as->nopol }}</td>
                             <td class="border px-4 py-2">{{ $as->jenis_kendaraan }}</td>
@@ -89,8 +91,8 @@
                                         class="fa-solid fa-pen" style="font-size: 10px"></i></a>
                                 <a href="{{ route('detail_stnk', $as) }}" class="btn btn-success text-xs"><i
                                         class="fa-solid fa-eye" style="font-size: 10px"></i></a>
-                                <a href="{{ route('KuasaSTNKPDF', $as) }}" class="btn btn-success text-xs ml-1"><i
-                                        class="fa-solid fa-file" style="font-size: 10px"></i></a>
+                                <a href="{{ route('KuasaSTNKPDF', $as) }}" class="btn btn-warning text-xs ml-1"><i
+                                        class="fa-solid fa-file-pdf" style="font-size: 10px"></i></a>
                             </td>
                         </tr>
                     @endforeach

@@ -53,7 +53,7 @@ class DataController extends Controller
         }
         $kendaraan = $query->paginate(10)->withQueryString();
         $filteredData = $query->get();
-        return view('allkendaraan', compact('title', 'subtitle', 'kendaraan'));
+        return view('kendaraan.allkendaraan', compact('title', 'subtitle', 'kendaraan'));
     }
 
     public function createkendaraan()
@@ -61,7 +61,7 @@ class DataController extends Controller
         $title = "Create Data";
         $subtitle = "Create New Kendaraan";
 
-        return view('create_kendaraan', compact('title', 'subtitle'));
+        return view('kendaraan.create_kendaraan', compact('title', 'subtitle'));
     }
 
     public function store_kendaraan(Request $request)
@@ -134,7 +134,7 @@ class DataController extends Controller
     {
         $title = "Edit Data";
         $subtitle = "Edit Kendaraan";
-        return view('edit_all', compact('title', 'subtitle', 'kendaraan'));
+        return view('kendaraan.edit_all', compact('title', 'subtitle', 'kendaraan'));
     }
 
     public function update_all(Request $request, Kendaraan $kendaraan)
@@ -242,7 +242,20 @@ class DataController extends Controller
         $kendaraan = $query->paginate(10)->withQueryString();
         $filteredData = $query->get();
 
-        return view('asuransi', compact('title', 'subtitle', 'kendaraan'));
+        // Tandai ASURANSI yang mati atau belum diperpanjang
+        $kendaraan->getCollection()->transform(function ($item) {
+            $end_insurance = optional($item->insurance)->end_insurance;
+            $now = Carbon::now()->startOfMonth();
+            $nextMonth = $now->copy()->addMonth();
+
+            $item->is_expired = $end_insurance && Carbon::parse($end_insurance)->lt($now);
+            $item->is_upcoming = $end_insurance && Carbon::parse($end_insurance)->month === $nextMonth->month
+                && Carbon::parse($end_insurance)->year === $nextMonth->year;
+
+            return $item;
+        });
+
+        return view('asuransi.asuransi', compact('title', 'subtitle', 'kendaraan'));
     }
 
     public function create_asuransi()
@@ -250,14 +263,14 @@ class DataController extends Controller
         $title = "Create Data";
         $subtitle = "Create New Insurance";
 
-        return view('create_asuransi', compact('title', 'subtitle'));
+        return view('asuransi.create_asuransi', compact('title', 'subtitle'));
     }
 
     public function detail_asuransi(Kendaraan $kendaraan)
     {
         $title = "Detail Data";
         $subtitle = "Detail Insurance";
-        return view('detail_asuransi', compact('title', 'subtitle', 'kendaraan'));
+        return view('asuransi.detail_asuransi', compact('title', 'subtitle', 'kendaraan'));
     }
 
     public function store(Request $request)
@@ -374,7 +387,7 @@ class DataController extends Controller
 
         // Gunakan instance DomPDF
         $pdf = app('dompdf.wrapper');
-        $pdf->loadView('export_pdf', ['data' => $filteredData])
+        $pdf->loadView('asuransi.export_pdf', ['data' => $filteredData])
             ->setPaper('A4', 'portrait');
 
         return $pdf->download('asuransi.pdf');
@@ -407,7 +420,20 @@ class DataController extends Controller
         $kendaraan = $query->paginate(10)->withQueryString();
         $filteredData = $query->get();
 
-        return view('stnk', compact('title', 'subtitle', 'kendaraan'));
+        // Tandai STNK yang mati atau belum diperpanjang
+        $kendaraan->getCollection()->transform(function ($item) {
+            $pajak = optional($item->stnk)->pajak;
+            $now = Carbon::now()->startOfMonth();
+            $nextMonth = $now->copy()->addMonth();
+
+            $item->is_expired = $pajak && Carbon::parse($pajak)->lt($now);
+            $item->is_upcoming = $pajak && Carbon::parse($pajak)->month === $nextMonth->month
+                && Carbon::parse($pajak)->year === $nextMonth->year;
+
+            return $item;
+        });
+
+        return view('stnk.stnk', compact('title', 'subtitle', 'kendaraan'));
     }
 
     public function create_stnk()
@@ -415,7 +441,7 @@ class DataController extends Controller
         $title = "Create Data";
         $subtitle = "Create New Stnk";
 
-        return view('create_stnk', compact('title', 'subtitle'));
+        return view('stnk.create_stnk', compact('title', 'subtitle'));
     }
 
     public function store_stnk(Request $request)
@@ -453,7 +479,7 @@ class DataController extends Controller
     {
         $title = "Edit Data";
         $subtitle = "Edit Stnk";
-        return view('edit_stnk', compact('title', 'subtitle', 'kendaraan'));
+        return view('stnk.edit_stnk', compact('title', 'subtitle', 'kendaraan'));
     }
 
     // public function detail_stnk(Stnk $stnk)
@@ -555,7 +581,7 @@ class DataController extends Controller
 
         // Gunakan instance DomPDF
         $pdf = app('dompdf.wrapper');
-        $pdf->loadView('export_pdf_stnk', ['data' => $filteredData])
+        $pdf->loadView('stnk.export_pdf_stnk', ['data' => $filteredData])
             ->setPaper('A4', 'portrait');
 
         return $pdf->download('stnk.pdf');
@@ -585,7 +611,7 @@ class DataController extends Controller
 
         // Gunakan instance DomPDF
         $pdf = app('dompdf.wrapper');
-        $pdf->loadView('surat_kuasa_stnk', ['data' => $filteredData], compact('kendaraan'))
+        $pdf->loadView('stnk.surat_kuasa_stnk', ['data' => $filteredData], compact('kendaraan'))
             ->setPaper('A4', 'portrait');
 
         return $pdf->stream('surat-kuasa-stnk.pdf');
@@ -636,7 +662,7 @@ class DataController extends Controller
 
         $kendaraan = $query->paginate(10)->withQueryString();
 
-        return view('kir', compact('title', 'subtitle', 'kendaraan'));
+        return view('kir.kir', compact('title', 'subtitle', 'kendaraan'));
     }
 
     public function edit_kir(Kendaraan $kendaraan)
@@ -644,7 +670,7 @@ class DataController extends Controller
         $title = "Edit Data";
         $subtitle = "Edit Kir";
         $karyawans = Karyawan::all();
-        return view('edit_kir', compact('title', 'subtitle', 'kendaraan', 'karyawans'));
+        return view('kir.edit_kir', compact('title', 'subtitle', 'kendaraan', 'karyawans'));
     }
 
     public function update_kir(Request $request, Kendaraan $kendaraan)
@@ -698,7 +724,7 @@ class DataController extends Controller
 
         // Gunakan instance DomPDF
         $pdf = app('dompdf.wrapper');
-        $pdf->loadView('surat_kuasa_kir', ['data' => $filteredData], compact('kendaraan'))
+        $pdf->loadView('kir.surat_kuasa_kir', ['data' => $filteredData], compact('kendaraan'))
             ->setPaper('A4', 'portrait');
 
         return $pdf->stream('surat-kuasa-kir.pdf');
@@ -711,15 +737,14 @@ class DataController extends Controller
         $title = 'KARYAWAN';
         $subtitle = 'HALAMAN KARYAWAN';
         $karyawans = Karyawan::paginate(10);
-        return view('karyawan', compact('title', 'subtitle', 'karyawans'));
+        return view('pegawai.karyawan', compact('title', 'subtitle', 'karyawans'));
     }
 
     public function create_karyawan()
     {
         $title = "Create Data";
         $subtitle = "Create New Karyawan";
-
-        return view('create_karyawan', compact('title', 'subtitle'));
+        return view('pegawai.create_karyawan', compact('title', 'subtitle'));
     }
 
     public function store_karyawan(Request $request)
