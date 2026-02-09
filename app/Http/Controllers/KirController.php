@@ -46,7 +46,7 @@ class KirController extends Controller
     {
         $title = "Edit Data";
         $subtitle = "Edit Kir";
-        $karyawans = Karyawan::all();
+        $karyawans = Karyawan::orderBy('nama', 'asc')->get();
         return view('kir.edit_kir', compact('title', 'subtitle', 'kendaraan', 'karyawans'));
     }
 
