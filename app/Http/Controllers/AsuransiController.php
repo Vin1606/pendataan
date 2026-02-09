@@ -16,7 +16,7 @@ class AsuransiController extends Controller
         $subtitle = 'HALAMAN ASURANSI';
         $query = Kendaraan::select('kendaraan.*')
             ->join('insurances', 'insurances.id_kendaraan', '=', 'kendaraan.id_kendaraan')
-            ->orderBy('insurances.end_insurance')
+            ->orderBy('insurances.end_insurance', 'asc')
             ->with(['insurance']);
 
 
@@ -38,7 +38,7 @@ class AsuransiController extends Controller
             });
         }
 
-        $kendaraan = $query->orderby('end_insurance')->paginate(10)->withQueryString();
+        $kendaraan = $query->paginate(10)->withQueryString();
         $filteredData = $query->get();
 
         // Tandai ASURANSI yang mati atau belum diperpanjang
