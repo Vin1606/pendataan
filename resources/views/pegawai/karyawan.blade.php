@@ -40,6 +40,7 @@
                         <th class="border px-4 py-2">Nama</th>
                         <th class="border px-4 py-2">No.KTP</th>
                         <th class="border px-4 py-2">Alamat</th>
+                        <th class="border px-4 py-2">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -49,6 +50,11 @@
                             <td class="border px-4 py-2">{{ $as->nama }}</td>
                             <td class="border px-4 py-2">{{ $as->no_ktp }}</td>
                             <td class="border px-4 py-2">{{ $as->alamat }}</td>
+                            <td class="border px-4 py-2">
+                                <a href="{{ route('edit_karyawan', $as->id_karyawan) }}" class="btn btn-warning">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </a>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

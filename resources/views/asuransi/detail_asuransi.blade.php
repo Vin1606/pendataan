@@ -36,6 +36,9 @@
                     <option value="Malaca Trust">Malaca Trust</option>
                     <option value="ACA">ACA</option>
                     <option value="Zurich">Zurich</option>
+                    <option value="Maximus Insurance">Maximus Insurance</option>
+                    <option value="Takaful Insurance">Takaful Insurance</option>
+                    <option value="BCA Insurance">BCA Insurance</option>
                 </select>
             </div>
 

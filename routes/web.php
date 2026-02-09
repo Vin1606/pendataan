@@ -1,63 +1,116 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\KirController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DataController;
+use App\Http\Controllers\StnkController;
+use App\Http\Controllers\AsuransiController;
+use App\Http\Controllers\KaryawanController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Middleware\EnsureUserDataIsComplete;
-use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 
-// Route for All Data Kendaraan
-Route::get('/All', [DataController::class, 'all'])->name('all.kendaraan')->middleware(['auth', EnsureUserDataIsComplete::class]);
-Route::get('/CreateKendaraan', [DataController::class, 'createkendaraan'])->name('create_kendaraan');
-Route::get('/EditAll/{kendaraan}', [DataController::class, 'editall'])->name('edit_all');
+// ALL ROUTES
 
-// LINK GET ASURANSI
-Route::get('/Asuransi', [DataController::class, 'index'])->name('index')->middleware(['auth', EnsureUserDataIsComplete::class]);
-Route::get('/CreateAsuransi', [DataController::class, 'create_asuransi'])->name('create_asuransi');
-Route::get('/exportInsurance', [DataController::class, 'export'])->name('exportInsurance');
-Route::get('/DetailAsuransi/{kendaraan}', [DataController::class, 'detail_asuransi'])->name('detail_asuransi');
-Route::get('/export-pdf-insurance', [DataController::class, 'exportPDF'])->name('export.pdf');
+Route::controller(AuthController::class)->group(function () {
+    Route::get('/', 'showLoginForm')->name('login');
+    Route::post('/login', 'login')->name('login.post');
+    Route::post('/logout', 'logout')->name('logout');
+    Route::get('/register', 'showRegistrationForm')->name('register');
+    Route::post('/register', 'register')->name('register.post');
+});
 
-// LINK GET STNK
-Route::get('/exportStnk', [DataController::class, 'exportSTNK'])->name('exportStnk');
-Route::get('/DataStnk', [DataController::class, 'data_stnk'])->name('data.stnk')->middleware(['auth', EnsureUserDataIsComplete::class]);
-Route::get('/CreateStnk', [DataController::class, 'create_stnk'])->name('create_stnk');
-Route::get('/EditStnk/{kendaraan}', [DataController::class, 'edit_stnk'])->name('edit_stnk');
-Route::get('/DetailStnk/{stnk}', [DataController::class, 'detail_stnk'])->name('detail_stnk');
-Route::get('/export-pdf-stnk', [DataController::class, 'exportPDFSTNK'])->name('exportPDFSTNK');
-Route::get('/surat-kuasa-stnk/{kendaraan}', [DataController::class, 'KuasaSTNKPDF'])->name('KuasaSTNKPDF');
+// ----------------------------------------------------------------------------------------------------------------------------------------------------------
 
-// LINK GET KIR
-Route::get('/DataKir', [DataController::class, 'data_kir'])->name('data.kir')->middleware(['auth', EnsureUserDataIsComplete::class]);
-Route::get('/EditKir/{kendaraan}', [DataController::class, 'edit_kir'])->name('EditKir');
-Route::get('/surat-kuasa-kir/{kendaraan}', [DataController::class, 'KuasaKIRPDF'])->name('KuasaKIRPDF');
+// ROUTES DASHBOARD
+Route::controller(DashboardController::class)->group(function () {
+    Route::get('/Dashboard', 'dashboard')->name('dashboard');
+});
 
-// LINK GET KARYAWAN
-Route::get('/DataKaryawan', [DataController::class, 'data_karyawan'])->name('data.karyawan')->middleware(['auth', EnsureUserDataIsComplete::class]);
-Route::get('/CreateKaryawan', [DataController::class, 'create_karyawan'])->name('create_karyawan');
+// ----------------------------------------------------------------------------------------------------------------------------------------------------------
 
-// POST
-Route::post('/store', [DataController::class, 'store'])->name('store');
-Route::post('/StoreStnk', [DataController::class, 'store_stnk'])->name('store_stnk');
-Route::post('/StoreKendaraan', [DataController::class, 'store_kendaraan'])->name('store_kendaraan');
-Route::post('/StoreKaryawan', [DataController::class, 'store_karyawan'])->name('store_karyawan');
-Route::post('/upload/{stnk}', [DataController::class, 'uploadPhoto'])->name('stnk.upload');
+// ROUTES DATA LENGKAP KENDARAAN
+Route::controller(DataController::class)->group(function () {
+    Route::get('/All', 'all')->name('all.kendaraan')->middleware(['auth', EnsureUserDataIsComplete::class]);
 
-// PUT
-Route::put('/DetailAsuransi/{kendaraan}', [DataController::class, 'update_asuransi'])->name('update_asuransi');
-Route::put('/EditAll/{kendaraan}', [DataController::class, 'update_all'])->name('update_all');
-Route::put('/DetailStnk/{kendaraan}', [DataController::class, 'update_stnk'])->name('update_stnk');
-Route::put('/UpdateKir/{kendaraan}', [DataController::class, 'update_kir'])->name('update_kir');
+    // CREATE DATA
+    Route::get('/CreateKendaraan', 'createkendaraan')->name('create_kendaraan');
+    Route::post('/StoreKendaraan', 'store_kendaraan')->name('store_kendaraan');
 
-// DELETE
-Route::delete('/photo/{stnk}', [DataController::class, 'deletePhoto'])->name('photo.delete');
+    // UPDATE DATA
+    Route::get('/EditAll/{kendaraan}', 'editall')->name('edit_all');
+    Route::put('/UpdateAll/{kendaraan}', 'update_all')->name('update_all');
+});
 
-// Authentication Routes
-Route::get('/', [AuthController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [AuthController::class, 'login'])->name('login.post');
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register');
-Route::post('/register', [AuthController::class, 'register'])->name('register.post');
+// ----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// ROUTES ASURANSI
+Route::controller(AsuransiController::class)->group(function () {
+    Route::get('/Asuransi', 'index')->name('index')->middleware(['auth', EnsureUserDataIsComplete::class]);
+
+    // CREATE DATA
+    Route::get('/CreateAsuransi', 'create_asuransi')->name('create_asuransi');
+    Route::post('/store', 'store')->name('store');
+
+    // UPDATE DATA
+    Route::get('/DetailAsuransi/{kendaraan}', 'detail_asuransi')->name('detail_asuransi');
+    Route::put('/UpdateAsuransi/{kendaraan}', 'update_asuransi')->name('update_asuransi');;
+
+    // EXPORT DATA
+    Route::get('/exportInsurance', 'export')->name('exportInsurance');
+    Route::get('/export-pdf-insurance', 'exportPDF')->name('export.pdf');
+});
+
+// ----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// ROUTES STNK
+Route::controller(StnkController::class)->group(function () {
+    Route::get('/DataStnk', 'data_stnk')->name('data.stnk')->middleware(['auth', EnsureUserDataIsComplete::class]);
+
+    // CREATE DATA
+    Route::get('/CreateStnk', 'create_stnk')->name('create_stnk');
+    Route::post('/StoreStnk', 'store_stnk')->name('store_stnk');
+
+    // UPDATE DATA
+    Route::get('/EditStnk/{kendaraan}', 'edit_stnk')->name('edit_stnk');
+    Route::put('/DetailStnk/{kendaraan}', [StnkController::class, 'update_stnk'])->name('update_stnk');
+
+    // EXPORT DATA
+    Route::get('/exportStnk', 'exportSTNK')->name('exportStnk');
+    Route::get('/export-pdf-stnk', 'exportPDFSTNK')->name('exportPDFSTNK');
+    Route::get('/surat-kuasa-stnk/{kendaraan}', 'KuasaSTNKPDF')->name('KuasaSTNKPDF');
+});
+
+// ----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// ROUTES KIR
+Route::controller(KirController::class)->group(function () {
+    Route::get('/DataKir', 'data_kir')->name('data.kir')->middleware(['auth', EnsureUserDataIsComplete::class]);
+
+    // UPDATE DATA
+    Route::get('/EditKir/{kendaraan}', 'edit_kir')->name('EditKir');
+    Route::put('/UpdateKir/{kendaraan}', 'update_kir')->name('update_kir');
+
+    // EXPORT DATA
+    Route::get('/surat-kuasa-kir/{kendaraan}', 'KuasaKIRPDF')->name('KuasaKIRPDF');
+});
+
+// ----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// ROUTES KARYAWAN
+Route::controller(KaryawanController::class)->group(function () {
+    Route::get('/DataKaryawan', [KaryawanController::class, 'data_karyawan'])->name('data.karyawan')->middleware(['auth', EnsureUserDataIsComplete::class]);
+
+    // CREATE DATA
+    Route::get('/CreateKaryawan', 'create_karyawan')->name('create_karyawan');
+    Route::post('/StoreKaryawan', 'store_karyawan')->name('store_karyawan');
+
+    // UPDATE DATA
+    Route::get('/EditKaryawan/{karyawan}', 'edit_karyawan')->name('edit_karyawan');
+    Route::put('/UpdateKaryawan/{karyawan}', 'update_karyawan')->name('update_karyawan');
+});
+
+// ----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Route::get('/robots.txt', function () {
     $lines = [

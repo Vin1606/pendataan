@@ -89,8 +89,6 @@
                             <td class="border px-1 py-2">
                                 <a href="{{ route('edit_stnk', $as) }}" class="btn btn-primary text-xs mr-1"><i
                                         class="fa-solid fa-pen" style="font-size: 10px"></i></a>
-                                <a href="{{ route('detail_stnk', $as) }}" class="btn btn-success text-xs"><i
-                                        class="fa-solid fa-eye" style="font-size: 10px"></i></a>
                                 <a href="{{ route('KuasaSTNKPDF', $as) }}" class="btn btn-warning text-xs ml-1"><i
                                         class="fa-solid fa-file-pdf" style="font-size: 10px"></i></a>
                             </td>

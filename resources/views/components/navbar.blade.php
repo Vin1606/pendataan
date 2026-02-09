@@ -9,12 +9,84 @@
                 </div>
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
-                        <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                        <x-navlink href="/All" :active="request()->is('All')">All Data</x-navlink>
-                        <x-navlink href="/Asuransi" :active="request()->is('Asuransi')">Data Asuransi</x-navlink>
-                        <x-navlink href="/DataStnk" :active="request()->is('DataStnk')">Data STNK</x-navlink>
-                        <x-navlink href="/DataKir" :active="request()->is('DataKir')">Data Kir</x-navlink>
-                        <x-navlink href="/DataKaryawan" :active="request()->is('DataKaryawan')">Data Karyawan</x-navlink>
+
+                        <!-- Navbar Biasa -->
+                        <x-navlink href="/Dashboard" :active="request()->is('Dashboard')">Dashboard</x-navlink>
+
+                        <!-- Dropdown Menu -->
+                        <div x-data="{ open: false }" class="relative">
+                            @php
+                                $currentMaster = 'Data Master';
+                                $isMasterActive = false;
+
+                                if (request()->is('All')) {
+                                    $currentMaster = 'Data Kendaraan';
+                                    $isMasterActive = true;
+                                } elseif (request()->is('Asuransi')) {
+                                    $currentMaster = 'Data Asuransi';
+                                    $isMasterActive = true;
+                                } elseif (request()->is('DataStnk')) {
+                                    $currentMaster = 'Data STNK';
+                                    $isMasterActive = true;
+                                } elseif (request()->is('DataKir')) {
+                                    $currentMaster = 'Data Kir';
+                                    $isMasterActive = true;
+                                } elseif (request()->is('DataKaryawan')) {
+                                    $currentMaster = 'Data Karyawan';
+                                    $isMasterActive = true;
+                                }
+                            @endphp
+
+                            <button @click="open = !open"
+                                class="{{ $isMasterActive ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' }} px-3 py-2 rounded-md text-sm font-medium flex items-center">
+                                {{ $currentMaster }}
+                                <svg class="ml-1 h-4 w-4 transform transition-transform duration-200"
+                                    :class="{ 'rotate-180': open }" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+
+
+                            <div x-show="open" @click.away="open = false" x-transition
+                                class="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
+                                <ul class="py-1">
+                                    <li>
+                                        <x-navlink href="/All" :active="request()->is('All')"
+                                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                            Data Kendaraan
+                                        </x-navlink>
+                                    </li>
+                                    <li>
+                                        <x-navlink href="/Asuransi" :active="request()->is('Asuransi')"
+                                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                            Data Asuransi
+                                        </x-navlink>
+                                    </li>
+                                    <li>
+                                        <x-navlink href="/DataStnk" :active="request()->is('DataStnk')"
+                                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                            Data STNK
+                                        </x-navlink>
+                                    </li>
+                                    <li>
+                                        <x-navlink href="/DataKir" :active="request()->is('DataKir')"
+                                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                            Data Kir
+                                        </x-navlink>
+                                    </li>
+                                    <li>
+                                        <x-navlink href="/DataKaryawan" :active="request()->is('DataKaryawan')"
+                                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                            Data Karyawan
+                                        </x-navlink>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- Navbar Biasa Lagi -->
+                        <x-navlink href="/Pengaturan" :active="request()->is('Pengaturan')">Pengaturan</x-navlink>
                     </div>
                 </div>
             </div>
