@@ -24,6 +24,7 @@ class StnkController extends Controller
                 $keyword = $request->keyword;
                 $q->where('pemilik', 'like', '%' . $keyword . '%')
                     ->orWhere('nopol', 'like', '%' . $keyword . '%')
+                    ->orWhere('rangka', 'like', '%' . $keyword . '%')
                     ->orWhere('type', 'like', '%' . $keyword . '%');
             });
         }
