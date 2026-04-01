@@ -90,6 +90,7 @@
                                     'Maximus Insurance',
                                     'Takaful Insurance',
                                     'BCA Insurance',
+                                    'Reliance',
                                 ];
                                 $currentAsuransi = old('name', $kendaraan->insurance->name ?? null);
                             @endphp

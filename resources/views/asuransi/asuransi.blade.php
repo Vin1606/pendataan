@@ -4,9 +4,10 @@
     <x-slot:subtitle>{{ $subtitle }}</x-slot:subtitle>
 
     @if (session('success'))
-        <x-alert-success>
-            {{ session('success') }}
-        </x-alert-success>
+        <div class="mb-4">
+            <x-alert-success>
+                {{ session('success') }}
+            </x-alert-success>
         </div>
     @endif
 

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tanda Terima Penyerahan STNK</title>
+    <style>
+        body {
+            font-family: 'Helvetica', 'Arial', sans-serif;
+            font-size: 12px;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .container {
+            width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #000;
+            padding-bottom: 10px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 18px;
+            text-transform: uppercase;
+        }
+
+        .content {
+            margin-top: 20px;
+        }
+
+        .content p {
+            margin: 5px 0;
+        }
+
+        .details-table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            border: 1px solid #333;
+        }
+
+        .details-table th,
+        .details-table td {
+            padding: 8px;
+            vertical-align: top;
+            border: 1px solid #333;
+            text-align: left;
+        }
+
+        .details-table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        .section-title {
+            font-weight: bold;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .signatures {
+            margin-top: 60px;
+            width: 100%;
+        }
+
+        .signatures td {
+            width: 50%;
+            text-align: center;
+            padding-top: 70px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Tanda Terima Penyerahan STNK</h1>
+        </div>
+
+        <div class="content">
+            <p>Pada hari ini, {{ \Carbon\Carbon::now()->translatedFormat('l, j F Y') }}, telah menyerahkan dokumen untuk
+                keperluan perpanjangan pajak STNK tahunan, dengan rincian sebagai berikut:</p>
+
+            <table class="details-table">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Nomor Polisi</th>
+                        <th>Nama Pemilik (di STNK)</th>
+                        <th>Merk / Type</th>
+                        <th>Masa Berlaku Pajak</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($kendaraans as $kendaraan)
+                        <tr>
+                            <td style="text-align: center;">{{ $loop->iteration }}</td>
+                            <td>{{ $kendaraan->nopol }}</td>
+                            <td>{{ $kendaraan->pemilik }}</td>
+                            <td>{{ $kendaraan->merk }} / {{ $kendaraan->type }}</td>
+                            <td>{{ $kendaraan->stnk ? \Carbon\Carbon::parse($kendaraan->stnk->pajak)->translatedFormat('j F Y') : '-' }}
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+
+            <p class="section-title">Dokumen yang diserahkan:</p>
+            <ol>
+                <li>STNK Asli (sesuai daftar di atas)</li>
+            </ol>
+
+            <p>Demikian tanda terima ini dibuat untuk dapat dipergunakan sebagaimana mestinya.</p>
+        </div>
+
+        <table class="signatures">
+            <tr>
+                <td>
+                    <p>Yang Menerima,</p>
+                    <br><br><br><br>
+                    <p>(_________________________)</p>
+                </td>
+                <td>
+                    <p>Yang Menyerahkan,</p>
+                    <br><br><br><br>
+                    <p>(_________________________)</p>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+</body>
+
+</html>

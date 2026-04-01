@@ -59,6 +59,15 @@
                 </button>
             </div>
         </form>
+
+        <div class="register">
+            <p class="mt-4 text-center text-sm text-gray-600">
+                Don't have an account?
+                <a href="{{ route('register') }}" class="text-indigo-600 hover:text-indigo-800 font-medium">
+                    Register here
+                </a>
+            </p>
+        </div>
     </div>
     {{-- Font Awesome Kit --}}
     <script src="https://kit.fontawesome.com/c2752fde40.js" crossorigin="anonymous"></script>

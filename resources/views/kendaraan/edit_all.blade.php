@@ -54,19 +54,15 @@
                 <label class="block text-sm font-medium text-gray-700 mb-1">Asuransi</label>
                 <select name="name"
                     class="w-full px-2 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white">
-                    <option selected>{{ $kendaraan->insurance->name ?? '-' }}</option>
-                    <option value="Sunday">Sunday</option>
-                    <option value="Bosowa">Bosowa</option>
-                    <option value="Abda">Abda</option>
-                    <option value="Sea Insure">Sea Insure</option>
-                    <option value="Sompo">Sompo</option>
-                    <option value="Etiqa">Etiqa</option>
-                    <option value="Malaca Trust">Malaca Trust</option>
-                    <option value="ACA">ACA</option>
-                    <option value="Zurich">Zurich</option>
-                    <option value="Maximus Insurance">Maximus Insurance</option>
-                    <option value="Takaful Insurance">Takaful Insurance</option>
-                    <option value="BCA Insurance">BCA Insurance</option>
+                    <option value="" disabled
+                        {{ ($kendaraan->insurance->name ?? '-') == '-' ? 'selected' : '' }}>-- Pilih Asuransi --
+                    </option>
+                    @foreach (['Sunday', 'Bosowa', 'Abda', 'Sea Insure', 'Sompo', 'Etiqa', 'Malaca Trust', 'ACA', 'Zurich', 'Maximus Insurance', 'Takaful Insurance', 'BCA Insurance', 'Astra Buana', 'Avrist'] as $item)
+                        <option value="{{ $item }}"
+                            {{ ($kendaraan->insurance->name ?? '') == $item ? 'selected' : '' }}>
+                            {{ $item }}
+                        </option>
+                    @endforeach
                 </select>
             </div>
 
@@ -177,11 +173,12 @@
                 <label class="block text-sm font-medium text-gray-700 mb-1">Pemilik Kendaraan</label>
                 <select name="pemilik"
                     class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white">
-                    <option selected>{{ $kendaraan->pemilik }}</option>
-                    <option value="TFT">TFT</option>
-                    <option value="RMA">RMA</option>
-                    <option value="TERANG FAJAR">TERANG FAJAR</option>
-                    <option value="JUNINGSIH SUTJIONO">JUNINGSIH SUTJIONO</option>
+                    <option value="" disabled>-- Pilih Pemilik --</option>
+                    @foreach (['TFT', 'RMA', 'TERANG FAJAR', 'JUNINGSIH SUTJIONO'] as $pemilik)
+                        <option value="{{ $pemilik }}" {{ $kendaraan->pemilik == $pemilik ? 'selected' : '' }}>
+                            {{ $pemilik }}
+                        </option>
+                    @endforeach
                 </select>
             </div>
 
@@ -190,13 +187,13 @@
                 <label class="block text-sm font-medium text-gray-700 mb-1">Jenis Kendaraan</label>
                 <select name="jenis_kendaraan"
                     class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white">
-                    <option selected>{{ $kendaraan->jenis_kendaraan }}</option>
-                    <option value="Dump Truck">Dump Truck</option>
-                    <option value="Box">Box</option>
-                    <option value="Bus">Bus</option>
-                    <option value="Hiace">Hiace</option>
-                    <option value="Pribadi">Pribadi</option>
-                    <option value="Storing">Storing</option>
+                    <option value="" disabled>-- Pilih Jenis --</option>
+                    @foreach (['Dump Truck', 'Box', 'Bus', 'Hiace', 'Pribadi', 'Storing'] as $jenis)
+                        <option value="{{ $jenis }}"
+                            {{ $kendaraan->jenis_kendaraan == $jenis ? 'selected' : '' }}>
+                            {{ $jenis }}
+                        </option>
+                    @endforeach
                 </select>
             </div>
 

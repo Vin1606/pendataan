@@ -38,8 +38,7 @@ class DataController extends Controller
                     ->whereYear('pajak', $request->tahun ?? now()->year);
             });
         }
-        $kendaraan = $query->orderBy('jenis_kendaraan')->paginate(10)->withQueryString();
-        $filteredData = $query->get();
+        $kendaraan = $query->orderBy('jenis_kendaraan')->get();
         return view('kendaraan.allkendaraan', compact('title', 'subtitle', 'kendaraan'));
     }
 

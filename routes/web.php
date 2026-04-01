@@ -1,14 +1,15 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\KirController;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\DataController;
-use App\Http\Controllers\StnkController;
 use App\Http\Controllers\AsuransiController;
-use App\Http\Controllers\KaryawanController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DataController;
+use App\Http\Controllers\KaryawanController;
+use App\Http\Controllers\KirController;
+use App\Http\Controllers\StnkController;
+use App\Http\Controllers\TandaTerimaController;
 use App\Http\Middleware\EnsureUserDataIsComplete;
+use Illuminate\Support\Facades\Route;
 
 // ALL ROUTES
 
@@ -108,6 +109,16 @@ Route::controller(KaryawanController::class)->group(function () {
     // UPDATE DATA
     Route::get('/EditKaryawan/{karyawan}', 'edit_karyawan')->name('edit_karyawan');
     Route::put('/UpdateKaryawan/{karyawan}', 'update_karyawan')->name('update_karyawan');
+});
+
+// ----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// ROUTES TANDA TERIMA
+Route::controller(TandaTerimaController::class)->middleware(['auth'])->group(function () {
+    Route::get('/tanda-terima/penyerahan-stnk/{kendaraan}', 'penyerahanStnk')->name('tanda.terima.penyerahan.stnk');
+    Route::get('/tanda-terima/pengambilan-stnk/{kendaraan}', 'pengambilanStnk')->name('tanda.terima.pengambilan.stnk');
+    Route::post('/tanda-terima/penyerahan-stnk-bulk', 'penyerahanStnkBulk')->name('tanda.terima.penyerahan.stnk.bulk');
+    Route::post('/tanda-terima/pengambilan-stnk-bulk', 'pengambilanStnkBulk')->name('tanda.terima.pengambilan.stnk.bulk');
 });
 
 // ----------------------------------------------------------------------------------------------------------------------------------------------------------

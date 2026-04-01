@@ -32,10 +32,8 @@ class AsuransiController extends Controller
         }
 
         if ($request->filled('bulan')) {
-            $query->whereHas('insurance', function ($q) use ($request) {
-                $q->whereMonth('end_insurance', $request->bulan)
-                    ->whereYear('end_insurance', $request->tahun ?? now()->year);
-            });
+            $query->whereMonth('insurances.end_insurance', $request->bulan)
+                ->whereYear('insurances.end_insurance', $request->tahun ?? now()->year);
         }
 
         $kendaraan = $query->paginate(10)->withQueryString();
