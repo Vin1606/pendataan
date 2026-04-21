@@ -36,7 +36,9 @@ class StnkController extends Controller
             });
         }
 
-        $kendaraan = $query->paginate(10)->withQueryString();
+        $perPage = $request->input('per_page', 10);
+        $perPage = $perPage == 'all' ? ($query->count() ?: 1) : $perPage;
+        $kendaraan = $query->paginate($perPage)->withQueryString();
         $filteredData = $query->get();
 
         // Tandai STNK yang mati atau belum diperpanjang
@@ -52,7 +54,7 @@ class StnkController extends Controller
             return $item;
         });
 
-        return view('stnk.stnk', compact('title', 'subtitle', 'kendaraan'));
+        return view('stnk.index', compact('title', 'subtitle', 'kendaraan'));
     }
 
     public function create_stnk()
@@ -60,7 +62,7 @@ class StnkController extends Controller
         $title = "Create Data";
         $subtitle = "Create New Stnk";
 
-        return view('stnk.create_stnk', compact('title', 'subtitle'));
+        return view('stnk.create', compact('title', 'subtitle'));
     }
 
     public function store_stnk(Request $request)
@@ -98,7 +100,7 @@ class StnkController extends Controller
     {
         $title = "Edit Data";
         $subtitle = "Edit Stnk";
-        return view('stnk.edit_stnk', compact('title', 'subtitle', 'kendaraan'));
+        return view('stnk.edit', compact('title', 'subtitle', 'kendaraan'));
     }
 
 
@@ -180,7 +182,7 @@ class StnkController extends Controller
 
         // Gunakan instance DomPDF
         $pdf = app('dompdf.wrapper');
-        $pdf->loadView('stnk.export_pdf_stnk', ['data' => $filteredData])
+        $pdf->loadView('stnk.export_pdf', ['data' => $filteredData])
             ->setPaper('A4', 'portrait');
 
         return $pdf->download('stnk.pdf');
@@ -210,7 +212,7 @@ class StnkController extends Controller
 
         // Gunakan instance DomPDF
         $pdf = app('dompdf.wrapper');
-        $pdf->loadView('stnk.surat_kuasa_stnk', ['data' => $filteredData], compact('kendaraan'))
+        $pdf->loadView('stnk.surat_kuasa', ['data' => $filteredData], compact('kendaraan'))
             ->setPaper('A4', 'portrait');
 
         return $pdf->stream('surat-kuasa-stnk.pdf');

@@ -37,9 +37,11 @@ class KirController extends Controller
             });
         }
 
-        $kendaraan = $query->paginate(10)->withQueryString();
+        $perPage = $request->input('per_page', 10);
+        $perPage = $perPage == 'all' ? ($query->count() ?: 1) : $perPage;
+        $kendaraan = $query->paginate($perPage)->withQueryString();
 
-        return view('kir.kir', compact('title', 'subtitle', 'kendaraan'));
+        return view('kir.index', compact('title', 'subtitle', 'kendaraan'));
     }
 
     public function edit_kir(Kendaraan $kendaraan)
@@ -47,7 +49,7 @@ class KirController extends Controller
         $title = "Edit Data";
         $subtitle = "Edit Kir";
         $karyawans = Karyawan::orderBy('nama', 'asc')->get();
-        return view('kir.edit_kir', compact('title', 'subtitle', 'kendaraan', 'karyawans'));
+        return view('kir.edit', compact('title', 'subtitle', 'kendaraan', 'karyawans'));
     }
 
     public function update_kir(Request $request, Kendaraan $kendaraan)
@@ -101,7 +103,7 @@ class KirController extends Controller
 
         // Gunakan instance DomPDF
         $pdf = app('dompdf.wrapper');
-        $pdf->loadView('kir.surat_kuasa_kir', ['data' => $filteredData], compact('kendaraan'))
+        $pdf->loadView('kir.surat_kuasa', ['data' => $filteredData], compact('kendaraan'))
             ->setPaper('A4', 'portrait');
 
         return $pdf->stream('surat-kuasa-kir.pdf');

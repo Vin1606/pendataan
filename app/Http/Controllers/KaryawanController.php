@@ -11,15 +11,17 @@ class KaryawanController extends Controller
     {
         $title = 'KARYAWAN';
         $subtitle = 'HALAMAN KARYAWAN';
-        $karyawans = Karyawan::paginate(10);
-        return view('pegawai.karyawan', compact('title', 'subtitle', 'karyawans'));
+        $perPage = $request->input('per_page', 10);
+        $perPage = $perPage == 'all' ? (\App\Models\Karyawan::count() ?: 1) : $perPage;
+        $karyawans = \App\Models\Karyawan::paginate($perPage)->withQueryString();
+        return view('karyawan.index', compact('title', 'subtitle', 'karyawans'));
     }
 
     public function create_karyawan()
     {
         $title = "Create Data";
         $subtitle = "Create New Karyawan";
-        return view('pegawai.create_karyawan', compact('title', 'subtitle'));
+        return view('karyawan.create', compact('title', 'subtitle'));
     }
 
     public function store_karyawan(Request $request)
@@ -40,7 +42,7 @@ class KaryawanController extends Controller
         $karyawan = Karyawan::findOrFail($karyawan->id_karyawan);
         $title = "Edit Data";
         $subtitle = "Edit Karyawan";
-        return view('pegawai.edit_karyawan', compact('title', 'subtitle', 'karyawan'));
+        return view('karyawan.edit', compact('title', 'subtitle', 'karyawan'));
     }
 
     public function update_karyawan(Request $request, Karyawan $karyawan)

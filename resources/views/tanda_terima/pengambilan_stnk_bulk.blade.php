@@ -104,7 +104,8 @@
                             <td style="text-align: center;">{{ $loop->iteration }}</td>
                             <td>{{ $kendaraan->nopol }}</td>
                             <td>{{ $kendaraan->pemilik }}</td>
-                            <td></td>
+                            <td>{{ $kendaraan->stnk ? \Carbon\Carbon::parse($kendaraan->stnk->pajak)->translatedFormat('j F Y') : '-' }}
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

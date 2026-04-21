@@ -38,8 +38,10 @@ class DataController extends Controller
                     ->whereYear('pajak', $request->tahun ?? now()->year);
             });
         }
-        $kendaraan = $query->orderBy('jenis_kendaraan')->get();
-        return view('kendaraan.allkendaraan', compact('title', 'subtitle', 'kendaraan'));
+        $perPage = $request->input('per_page', 10);
+        $perPage = $perPage == 'all' ? ($query->count() ?: 1) : $perPage;
+        $kendaraan = $query->orderBy('jenis_kendaraan')->paginate($perPage)->withQueryString();
+        return view('kendaraan.index', compact('title', 'subtitle', 'kendaraan'));
     }
 
     public function createkendaraan()
@@ -47,7 +49,7 @@ class DataController extends Controller
         $title = "Create Data";
         $subtitle = "Create New Kendaraan";
 
-        return view('kendaraan.create_kendaraan', compact('title', 'subtitle'));
+        return view('kendaraan.create', compact('title', 'subtitle'));
     }
 
     public function store_kendaraan(Request $request)
@@ -120,7 +122,7 @@ class DataController extends Controller
     {
         $title = "Edit Data";
         $subtitle = "Edit Kendaraan";
-        return view('kendaraan.edit_all', compact('title', 'subtitle', 'kendaraan'));
+        return view('kendaraan.edit', compact('title', 'subtitle', 'kendaraan'));
     }
 
     public function update_all(Request $request, Kendaraan $kendaraan)

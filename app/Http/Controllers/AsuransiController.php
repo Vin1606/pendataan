@@ -36,7 +36,9 @@ class AsuransiController extends Controller
                 ->whereYear('insurances.end_insurance', $request->tahun ?? now()->year);
         }
 
-        $kendaraan = $query->paginate(10)->withQueryString();
+        $perPage = $request->input('per_page', 10);
+        $perPage = $perPage == 'all' ? ($query->count() ?: 1) : $perPage;
+        $kendaraan = $query->paginate($perPage)->withQueryString();
         $filteredData = $query->get();
 
         // Tandai ASURANSI yang mati atau belum diperpanjang
@@ -52,7 +54,7 @@ class AsuransiController extends Controller
             return $item;
         });
 
-        return view('asuransi.asuransi', compact('title', 'subtitle', 'kendaraan'));
+        return view('asuransi.index', compact('title', 'subtitle', 'kendaraan'));
     }
 
     public function create_asuransi()
@@ -60,14 +62,14 @@ class AsuransiController extends Controller
         $title = "Create Data";
         $subtitle = "Create New Insurance";
 
-        return view('asuransi.create_asuransi', compact('title', 'subtitle'));
+        return view('asuransi.create', compact('title', 'subtitle'));
     }
 
     public function detail_asuransi(Kendaraan $kendaraan)
     {
         $title = "Detail Data";
         $subtitle = "Detail Insurance";
-        return view('asuransi.detail_asuransi', compact('title', 'subtitle', 'kendaraan'));
+        return view('asuransi.edit', compact('title', 'subtitle', 'kendaraan'));
     }
 
     public function store(Request $request)

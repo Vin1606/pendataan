@@ -19,14 +19,14 @@
             <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                 {{-- Left: Export Buttons --}}
                 <div class="flex items-center gap-3">
-                    <a href="{{ route('exportInsurance', request()->query()) }}"
+                    <a href="{{ route('exportStnk', request()->query()) }}"
                         class="inline-flex items-center justify-center px-4 py-2.5 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200 rounded-lg text-sm font-medium transition-colors duration-200 group">
                         <i
                             class="fa-solid fa-file-excel mr-2 text-emerald-600 group-hover:scale-110 transition-transform"></i>
                         <span>Excel</span>
                     </a>
 
-                    <a href="{{ route('export.pdf', request()->query()) }}"
+                    <a href="{{ route('exportPDFSTNK', request()->query()) }}"
                         class="inline-flex items-center justify-center px-4 py-2.5 bg-rose-50 text-rose-700 hover:bg-rose-100 border border-rose-200 rounded-lg text-sm font-medium transition-colors duration-200 group">
                         <i
                             class="fa-solid fa-file-pdf mr-2 text-rose-600 group-hover:scale-110 transition-transform"></i>
@@ -35,7 +35,7 @@
                 </div>
 
                 {{-- Right: Search & Filter --}}
-                <form method="GET" action="{{ route('index') }}"
+                <form method="GET" action="{{ route('data.stnk') }}"
                     class="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
 
                     {{-- Search Input --}}
@@ -44,7 +44,7 @@
                             <i
                                 class="fa-solid fa-magnifying-glass text-gray-400 group-focus-within:text-blue-500 transition-colors"></i>
                         </div>
-                        <input type="text" name="keyword" placeholder="Cari Nopol, Asuransi..."
+                        <input type="text" name="keyword" placeholder="Cari Nopol, Rangka..."
                             value="{{ request('keyword') }}"
                             class="block w-full pl-10 pr-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm text-gray-700 focus:bg-white focus:ring-2 focus:ring-blue-100 focus:border-blue-400 transition-all outline-none">
                     </div>
@@ -82,7 +82,7 @@
             <div
                 class="px-6 py-5 border-b border-gray-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
-                    <h2 class="text-lg font-bold text-gray-800">Data Asuransi Kendaraan</h2>
+                    <h2 class="text-lg font-bold text-gray-800">Data STNK Kendaraan</h2>
                     <p class="text-xs text-gray-500 mt-1">Total {{ $kendaraan->total() }} data ditemukan</p>
                 </div>
 
@@ -100,7 +100,6 @@
                     </div>
                 </div>
             </div>
-
             {{-- Table --}}
             <div class="overflow-x-auto">
                 <table class="w-full text-sm text-left">
@@ -109,11 +108,11 @@
                         <tr>
                             <th class="px-6 py-4 text-center w-16">No</th>
                             <th class="px-6 py-4">Identitas Kendaraan</th>
-                            <th class="px-6 py-4">Detail Asuransi</th>
                             <th class="px-6 py-4">Detail Fisik</th>
                             <th class="px-6 py-4 text-center">Tahun</th>
-                            <th class="px-6 py-4 text-right">Harga</th>
-                            <th class="px-6 py-4 text-center">Masa Berlaku</th>
+                            <th class="px-6 py-4 text-center">Masa Berlaku Plat</th>
+                            <th class="px-6 py-4 text-center">Masa Berlaku Pajak</th>
+                            <th class="px-6 py-4">Pemilik</th>
                             <th class="px-6 py-4 text-center w-24">Aksi</th>
                         </tr>
                     </thead>
@@ -144,16 +143,7 @@
                                 <td class="px-6 py-4">
                                     <div class="flex flex-col">
                                         <span class="font-bold text-gray-800 text-base">{{ $as->nopol }}</span>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4">
-                                    <div class="flex flex-col">
-                                        <span
-                                            class="font-semibold text-gray-700">{{ $as->insurance->name ?? '-' }}</span>
-                                        <span class="text-xs text-gray-500 mt-0.5">
-                                            <i class="fa-solid fa-hashtag mr-1 text-gray-400"></i>
-                                            {{ $as->insurance->no_polish ?? '-' }}
-                                        </span>
+                                        <span class="text-xs text-gray-500 mt-0.5">{{ $as->jenis_kendaraan }}</span>
                                     </div>
                                 </td>
                                 <td class="px-6 py-4">
@@ -174,14 +164,19 @@
                                         {{ $as->tahun }}
                                     </span>
                                 </td>
-                                <td class="px-6 py-4 text-right font-mono text-gray-600">
-                                    {{ $as->insurance?->harga ? Number::currency($as->insurance->harga, in: 'IDR') : '-' }}
+                                <td class="px-6 py-4 text-center">
+                                    <div class="flex flex-col items-center">
+                                        <span
+                                            class="font-medium {{ $as->is_expired ? 'text-red-600' : 'text-gray-700' }}">
+                                            {{ \Carbon\Carbon::parse($as->stnk->plat)->translatedFormat('d M Y') }}
+                                        </span>
+                                    </div>
                                 </td>
                                 <td class="px-6 py-4 text-center">
                                     <div class="flex flex-col items-center">
                                         <span
                                             class="font-medium {{ $as->is_expired ? 'text-red-600' : 'text-gray-700' }}">
-                                            {!! $statusIndicator !!}{{ $as->insurance?->end_insurance ? \Carbon\Carbon::parse($as->insurance->end_insurance)->translatedFormat('d M Y') : '-' }}
+                                            {!! $statusIndicator !!}{{ \Carbon\Carbon::parse($as->stnk->pajak)->translatedFormat('d M Y') }}
                                         </span>
                                         @if ($as->is_expired)
                                             <span
@@ -192,13 +187,31 @@
                                         @endif
                                     </div>
                                 </td>
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center gap-2">
+                                        <div
+                                            class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-400">
+                                            <i class="fa-solid fa-user text-xs"></i>
+                                        </div>
+                                        <span class="font-medium text-gray-700">{{ $as->pemilik }}</span>
+                                    </div>
+                                </td>
                                 <td class="px-6 py-4 text-center">
-                                    <a href="{{ route('detail_asuransi', $as) }}"
-                                        class="group relative inline-flex w-8 h-8 rounded-lg bg-blue-50 text-blue-600 items-center justify-center hover:bg-blue-600 hover:text-white transition-all duration-200 shadow-sm hover:shadow-blue-200">
-                                        <i class="fa-solid fa-pen text-xs"></i>
-                                        <span
-                                            class="absolute bottom-full mb-2 hidden group-hover:block px-2 py-1 bg-gray-800 text-white text-xs rounded whitespace-nowrap z-20">Edit</span>
-                                    </a>
+                                    <div class="flex items-center justify-center gap-2">
+                                        <a href="{{ route('edit_stnk', $as) }}"
+                                            class="group relative w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all duration-200 shadow-sm hover:shadow-blue-200">
+                                            <i class="fa-solid fa-pen text-xs"></i>
+                                            <span
+                                                class="absolute bottom-full mb-2 hidden group-hover:block px-2 py-1 bg-gray-800 text-white text-xs rounded whitespace-nowrap">Edit</span>
+                                        </a>
+                                        <a href="{{ route('KuasaSTNKPDF', $as) }}"
+                                            class="group relative w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center hover:bg-amber-500 hover:text-white transition-all duration-200 shadow-sm hover:shadow-amber-200">
+                                            <i class="fa-solid fa-file-pdf text-xs"></i>
+                                            <span
+                                                class="absolute bottom-full mb-2 hidden group-hover:block px-2 py-1 bg-gray-800 text-white text-xs rounded whitespace-nowrap">Surat
+                                                Kuasa</span>
+                                        </a>
+                                    </div>
                                 </td>
                             </tr>
                         @empty
@@ -220,9 +233,20 @@
             </div>
 
             {{-- Pagination --}}
-            @if ($kendaraan->hasPages())
-                <div class="px-6 py-4 border-t border-gray-100 bg-gray-50">
-                    {{ $kendaraan->links() }}
+            @if ($kendaraan->total() > 0)
+                <div class="px-6 py-4 border-t border-gray-100 bg-gray-50 flex flex-col sm:flex-row justify-between items-center gap-4">
+                    <div class="flex items-center gap-2">
+                        <span class="text-sm text-gray-500">Show</span>
+                        <select onchange="window.location.href=this.value" class="bg-white border border-gray-200 text-gray-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block py-1.5 pl-2 pr-6 outline-none cursor-pointer">
+                            <option value="{{ request()->fullUrlWithQuery(['per_page' => 10]) }}" @if(request('per_page') == 10 || !request('per_page')) selected @endif>10</option>
+                            <option value="{{ request()->fullUrlWithQuery(['per_page' => 50]) }}" @if(request('per_page') == 50) selected @endif>50</option>
+                            <option value="{{ request()->fullUrlWithQuery(['per_page' => 'all']) }}" @if(request('per_page') == 'all') selected @endif>All</option>
+                        </select>
+                        <span class="text-sm text-gray-500">entries</span>
+                    </div>
+                    <div class="w-full sm:w-auto">
+                        {{ $kendaraan->links() }}
+                    </div>
                 </div>
             @endif
         </div>

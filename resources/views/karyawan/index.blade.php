@@ -120,9 +120,20 @@
                 </table>
             </div>
 
-            @if ($karyawans->hasPages())
-                <div class="px-6 py-4 border-t border-gray-100 bg-gray-50">
-                    {{ $karyawans->links() }}
+            @if ($karyawans->total() > 0)
+                <div class="px-6 py-4 border-t border-gray-100 bg-gray-50 flex flex-col sm:flex-row justify-between items-center gap-4">
+                    <div class="flex items-center gap-2">
+                        <span class="text-sm text-gray-500">Show</span>
+                        <select onchange="window.location.href=this.value" class="bg-white border border-gray-200 text-gray-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block py-1.5 pl-2 pr-6 outline-none cursor-pointer">
+                            <option value="{{ request()->fullUrlWithQuery(['per_page' => 10]) }}" @if(request('per_page') == 10 || !request('per_page')) selected @endif>10</option>
+                            <option value="{{ request()->fullUrlWithQuery(['per_page' => 50]) }}" @if(request('per_page') == 50) selected @endif>50</option>
+                            <option value="{{ request()->fullUrlWithQuery(['per_page' => 'all']) }}" @if(request('per_page') == 'all') selected @endif>All</option>
+                        </select>
+                        <span class="text-sm text-gray-500">entries</span>
+                    </div>
+                    <div class="w-full sm:w-auto">
+                        {{ $karyawans->links() }}
+                    </div>
                 </div>
             @endif
         </div>

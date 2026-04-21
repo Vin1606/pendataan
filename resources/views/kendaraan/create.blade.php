@@ -164,7 +164,7 @@
                 <label class="form-label">Asuransi</label>
                 <select name="name" class="form-input @error('name') is-invalid @enderror">
                     <option disabled {{ old('name') ? '' : 'selected' }}>-- Pilih Asuransi --</option>
-                    @foreach (['Sunday', 'Bosowa', 'Abda', 'Sea Insure', 'Sompo', 'Etiqa', 'Malaca Trust', 'ACA', 'Zurich', 'Maximus Insurance', 'Takaful Insurance', 'BCA Insurance', 'Astra Buana', 'Avrist'] as $asuransi)
+                    @foreach (['Sunday', 'Bosowa', 'Abda', 'Sea Insure', 'Sompo', 'Etiqa', 'Malaca Trust', 'ACA', 'Zurich', 'Maximus Insurance', 'Takaful Insurance', 'BCA Insurance', 'Astra Buana', 'Avrist', 'Reliance'] as $asuransi)
                         <option value="{{ $asuransi }}" {{ old('name') == $asuransi ? 'selected' : '' }}>
                             {{ $asuransi }}</option>
                     @endforeach
