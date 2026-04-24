@@ -78,19 +78,19 @@
                             @php
                                 $asuransiList = [
                                     'Tidak Ada',
-                                    'Sunday',
-                                    'Bosowa',
-                                    'Abda',
-                                    'Sea Insure',
-                                    'Sompo',
-                                    'Etiqa',
-                                    'Malaca Trust',
+                                    'SUNDAY',
+                                    'BOSOWA',
+                                    'OONA',
+                                    'SEA INSURE',
+                                    'SOMPO',
+                                    'ETIQA',
+                                    'MALACA',
                                     'ACA',
-                                    'Zurich',
-                                    'Maximus Insurance',
-                                    'Takaful Insurance',
-                                    'BCA Insurance',
-                                    'Reliance',
+                                    'ZURICH',
+                                    'MAXIMUS INSURANCE',
+                                    'TAKAFUS INSURANCE',
+                                    'BCA INSUANCE',
+                                    'RELIANCE',
                                 ];
                                 $currentAsuransi = old('name', $kendaraan->insurance->name ?? null);
                             @endphp
